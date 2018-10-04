@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import '@atlaskit/css-reset';
 import initialData from './initial-data';
-
+import Column from './column.js'
 
 class App extends Component {
   state = initialData
