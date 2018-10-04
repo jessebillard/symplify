@@ -8,7 +8,43 @@ class App extends Component {
   state = initialData
 
   onDragEnd = (result) => {
-    // todo : reorder our columns
+    const { destination, source, draggableId} = result
+
+    // if no desination we return out
+    if (!destination) {
+      return
+    }
+
+    // if location of the destination and source id's are the same, we return out
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return 
+    }
+
+    // grab our column from state
+    const column = this.state.columns[source.droppableId]
+    // make a copy array of this columns tasks order
+    const newTaskIds = Array.from(column.taskIds)
+    // remove the source position
+    newTaskIds.splice(source.index, 1)
+    // at destination position, insert the new item
+    newTaskIds.splice(destination.index, 0, draggableId)
+
+    const newColumn = {
+      ...column,
+      taskIds: newTaskIds
+    }
+
+    this.setState({
+      ...this.state,
+      columns: {
+        ...this.state.columns,
+        [newColumn.id]: newColumn
+      }
+    })
+
   }
 
   render() {

@@ -22,15 +22,15 @@ class Column extends React.Component {
             <Container>
                 <Title>{this.props.column.title}</Title>
                 <Droppable droppableId={this.props.column.id}>
-                    {(provided) => {
+                    {(provided) => (
                         <TaskList
                             {...provided.droppableProps} 
                             innerRef={provided.innerRef}
                         >
-                            {this.props.tasks.map(task => <Task key={task.id} task={task} />)}
+                            {this.props.tasks.map((task, index) => <Task key={task.id} index={index} task={task} />)}
                             {provided.placeholder}
                         </TaskList>
-                    }}
+                    )}
                 </Droppable>
             </Container>
         )           
