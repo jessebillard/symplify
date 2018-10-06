@@ -29,27 +29,55 @@ class App extends Component {
       return 
     }
 
-    // grab our column from state
-    const column = this.state.columns[source.droppableId]
-    // make a copy array of this columns tasks order
-    const newTaskIds = Array.from(column.taskIds)
-    // remove the source position
-    newTaskIds.splice(source.index, 1)
-    // at destination position, insert the new item
-    newTaskIds.splice(destination.index, 0, draggableId)
+    
+    const start = this.state.columns[source.droppableId]
+    const finish = this.state.columns[destination.droppableId] 
+    
+    if (start === finish) {
+      const newTaskIds = Array.from(start.taskIds)
+    
+      newTaskIds.splice(source.index, 1)
+    
+      newTaskIds.splice(destination.index, 0, draggableId)
+      
+      const newColumn = {
+        ...start,
+        taskIds: newTaskIds
+      }
+  
+      this.setState({
+        ...this.state,
+        columns: {
+          ...this.state.columns,
+          [newColumn.id]: newColumn
+        }
+      })
+    }
+    
+    // moving one list to another
+    const startTaskIds = Array.from(start.taskIds)
+    startTaskIds.splice(source.index, 1)
+    const newStart = {
+      ...start,
+      taskIds: startTaskIds
+    }
 
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds
+    const finishTaskIds = Array.from(finish.taskIds)
+    finishTaskIds.splice(destination.index, 0, draggableId)
+    const newFinish = {
+      ...finish,
+      taskIds: finishTaskIds
     }
 
     this.setState({
       ...this.state,
       columns: {
         ...this.state.columns,
-        [newColumn.id]: newColumn
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish
       }
     })
+
 
   }
 
