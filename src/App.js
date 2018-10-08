@@ -29,6 +29,9 @@ class App extends Component {
       return 
     }
 
+
+
+    
     
     const start = this.state.columns[source.droppableId]
     const finish = this.state.columns[destination.droppableId] 
@@ -52,31 +55,33 @@ class App extends Component {
           [newColumn.id]: newColumn
         }
       })
+    } else {
+      const startTaskIds = Array.from(start.taskIds)
+      startTaskIds.splice(source.index, 1)
+      const newStart = {
+        ...start,
+        taskIds: startTaskIds
+      }
+  
+      const finishTaskIds = Array.from(finish.taskIds)
+      finishTaskIds.splice(destination.index, 0, draggableId)
+      const newFinish = {
+        ...finish,
+        taskIds: finishTaskIds
+      }
+  
+      this.setState({
+        ...this.state,
+        columns: {
+          ...this.state.columns,
+          [newStart.id]: newStart,
+          [newFinish.id]: newFinish
+        }
+      })
     }
     
     // moving one list to another
-    const startTaskIds = Array.from(start.taskIds)
-    startTaskIds.splice(source.index, 1)
-    const newStart = {
-      ...start,
-      taskIds: startTaskIds
-    }
-
-    const finishTaskIds = Array.from(finish.taskIds)
-    finishTaskIds.splice(destination.index, 0, draggableId)
-    const newFinish = {
-      ...finish,
-      taskIds: finishTaskIds
-    }
-
-    this.setState({
-      ...this.state,
-      columns: {
-        ...this.state.columns,
-        [newStart.id]: newStart,
-        [newFinish.id]: newFinish
-      }
-    })
+    
 
 
   }
