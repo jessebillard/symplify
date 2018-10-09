@@ -3,7 +3,7 @@ import '@atlaskit/css-reset';
 import initialData from './initial-data';
 import Column from './column.js'
 import styled from 'styled-components'
-import { DragDropContext } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 const Container = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ class App extends Component {
   state = initialData
 
   onDragEnd = (result) => {
-    const { destination, source, draggableId} = result
+    const { destination, source, draggableId, type } = result
 
     // if no desination we return out
     if (!destination) {
@@ -30,7 +30,16 @@ class App extends Component {
     }
 
 
-
+    if (type === 'column') {
+      const newColumnOrder = Array.from(this.state.columnOrder)
+      newColumnOrder.splice(source.index, 1)
+      newColumnOrder.splice(destination.index, 0, draggableId)
+      this.setState({
+        ...this.state,
+        columnOrder: newColumnOrder
+      })
+      return;
+    }
     
     
     const start = this.state.columns[source.droppableId]
@@ -89,13 +98,21 @@ class App extends Component {
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd} >
-        <Container>
-          {this.state.columnOrder.map(columnId => {
-            const column = this.state.columns[columnId]
-            const tasks = column.taskIds.map(taskId => this.state.tasks[taskId])
-            return <Column key={column.id} column={column} tasks={tasks} />
-          })}
-        </Container>
+        <Droppable droppableId='all-columns' direction='horizontal' type='column'>
+          {(provided) => (
+            <Container
+              {...provided.droppableProps}
+              innerRef={provided.innerRef}
+            >
+              {this.state.columnOrder.map((columnId, index) => {
+                const column = this.state.columns[columnId]
+                const tasks = column.taskIds.map(taskId => this.state.tasks[taskId])
+                return <Column key={column.id} column={column} index={index} tasks={tasks} />
+              })}
+              {provided.placeholder}
+            </Container>            
+          )}
+        </Droppable>
       </DragDropContext>      
     );
   }
