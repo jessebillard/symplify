@@ -7,7 +7,8 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;  
+  flex-wrap: nowrap;
+  overflow-x: auto;  
 `
 
 class App extends Component {

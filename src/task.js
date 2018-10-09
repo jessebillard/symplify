@@ -21,6 +21,7 @@ class Task extends React.Component {
                         {...provided.dragHandleProps}
                         innerRef={provided.innerRef}
                         isDragging={snapshot.isDragging}
+                        onClick={() => alert('clicked bb')}
                     >
                         {this.props.task.content}            
                     </Container>
