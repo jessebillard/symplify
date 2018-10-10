@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Task from './task'
+import Note from './note'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 
 const Container = styled.div`
@@ -16,7 +16,7 @@ const Title = styled.h3`
     padding: 8px;
 
 `
-const TaskList = styled.div`
+const NoteList = styled.div`
     padding: 8px;
     transition: background-color 0.5s ease;
     background-color: ${props => (props.isDraggingOver ? 'whitesmoke' : 'white')}
@@ -24,7 +24,7 @@ const TaskList = styled.div`
     min-height: 100px;
 `
 
-class Column extends React.Component {
+class List extends React.Component {
     render() {
         return (
             <div>
@@ -37,14 +37,14 @@ class Column extends React.Component {
                             <Title {...provided.dragHandleProps}>{this.props.column.title}</Title>
                             <Droppable droppableId={this.props.column.id} type='task'>
                                 {(provided, snapshot) => (
-                                    <TaskList
+                                    <NoteList
                                         isDraggingOver={snapshot.isDraggingOver}
                                         {...provided.droppableProps} 
                                         innerRef={provided.innerRef}
                                     >
-                                        {this.props.tasks.map((task, index) => <Task key={task.id} index={index} task={task} />)}
+                                        {this.props.tasks.map((task, index) => <Note key={task.id} index={index} task={task} />)}
                                         {provided.placeholder}
-                                    </TaskList>
+                                    </NoteList>
                                 )}
                             </Droppable>
                         </Container>
@@ -55,4 +55,4 @@ class Column extends React.Component {
     }
 }
 
-export default Column
+export default List

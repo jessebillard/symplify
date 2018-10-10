@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import '@atlaskit/css-reset';
 import initialData from './initial-data';
-import Column from './components/column.js'
+import List from './components/list.js'
 import styled from 'styled-components'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { getBoards } from './actions/index'
+import { connect } from 'react-redux'
 
 const Container = styled.div`
   display: flex;
@@ -13,6 +15,10 @@ const Container = styled.div`
 
 class App extends Component {
   state = initialData
+
+  componentDidMount() {
+    this.props.getBoards()
+  }
 
   onDragEnd = (result) => {
     const { destination, source, draggableId, type } = result
@@ -108,7 +114,7 @@ class App extends Component {
               {this.state.columnOrder.map((columnId, index) => {
                 const column = this.state.columns[columnId]
                 const tasks = column.taskIds.map(taskId => this.state.tasks[taskId])
-                return <Column key={column.id} column={column} index={index} tasks={tasks} />
+                return <List key={column.id} column={column} index={index} tasks={tasks} />
               })}
               {provided.placeholder}
             </Container>            
@@ -119,4 +125,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, { getBoards })(App);
