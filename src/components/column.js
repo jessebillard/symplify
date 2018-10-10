@@ -7,11 +7,10 @@ const Container = styled.div`
     margin: 8px;
     border: 1px solid lightgrey;
     background-color: white;
-    border-radius: 2px;    
+    border-radius: 4px;    
     display: flex;
     width: 200px;
     flex-direction: column;
-    
 `;
 const Title = styled.h3`
     padding: 8px;
