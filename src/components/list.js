@@ -1,7 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import Note from './note'
+import { Button, Icon, Modal, Input, Segment } from 'semantic-ui-react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css';
 
 const Container = styled.div`
     margin: 8px;
@@ -25,6 +28,30 @@ const NoteList = styled.div`
 `
 
 class List extends React.Component {
+
+    constructor() {
+        super()
+        this.state = {
+            modalOpen: false
+        }
+    }
+
+    onAddNoteClick = () => {
+        this.setState({
+            modalOpen: true
+        })
+    }
+
+    handleModalClose = () => {
+        this.setState({
+            modalOpen: false
+        })
+    }
+
+    handleDescriptionChange = (html) => {
+        console.log(html)
+    }
+
     render() {
         return (
             <div>
@@ -47,9 +74,46 @@ class List extends React.Component {
                                     </NoteList>
                                 )}
                             </Droppable>
+                            <div>
+                                <Button onClick={this.onAddNoteClick} compact fluid icon labelPosition='left'>
+                                    <Icon name='plus'/>
+                                    Add Note...
+                                </Button>
+                            </div>
                         </Container>
                     )}
                 </Draggable>
+                <Modal size='small' open={this.state.modalOpen} onClose={this.handleModalClose}>
+                    <Segment.Group horizontal>
+                        <Segment textAlign='center'>
+                            <h2>Add Title</h2>
+                        </Segment>
+                        <Segment textAlign='center'>
+                            <Input />
+                        </Segment>
+                    </Segment.Group>
+                    <Segment.Group>
+                        <Segment>
+                            <h2>Add Description</h2>
+                        </Segment>
+                        <Segment>
+                            <div className="editor-div">
+                                <ReactQuill 
+                                    theme='snow'
+                                    onChange={this.handleDescriptionChange}                        
+                                    
+                                    // value={this.props.selectedNoteContent}
+                                    // modules={modules}
+                                    // formats={formats}
+                                    bounds={'.editor-div'}
+                                    placeholder='Enter text here...'
+                                />
+
+                            </div>
+                        </Segment>
+                    </Segment.Group>
+                    
+                </Modal>
             </div>
         )           
     }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css'
 import '@atlaskit/css-reset';
 import initialData from './initial-data';
 import List from './components/list.js'
