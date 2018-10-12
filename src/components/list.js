@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import Note from './note'
-import { Button, Icon, Modal, Input, Segment } from 'semantic-ui-react'
+import { Button, Icon, Modal } from 'semantic-ui-react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css';
+import NoteEditor from './noteEditor';
 
 const Container = styled.div`
     margin: 8px;
@@ -48,10 +47,6 @@ class List extends React.Component {
         })
     }
 
-    handleDescriptionChange = (html) => {
-        console.log(html)
-    }
-
     render() {
         return (
             <div>
@@ -84,35 +79,7 @@ class List extends React.Component {
                     )}
                 </Draggable>
                 <Modal size='small' open={this.state.modalOpen} onClose={this.handleModalClose}>
-                    <Segment.Group horizontal>
-                        <Segment textAlign='center'>
-                            <h2>Add Title</h2>
-                        </Segment>
-                        <Segment textAlign='center'>
-                            <Input />
-                        </Segment>
-                    </Segment.Group>
-                    <Segment.Group>
-                        <Segment>
-                            <h2>Add Description</h2>
-                        </Segment>
-                        <Segment>
-                            <div className="editor-div">
-                                <ReactQuill 
-                                    theme='snow'
-                                    onChange={this.handleDescriptionChange}                        
-                                    
-                                    // value={this.props.selectedNoteContent}
-                                    // modules={modules}
-                                    // formats={formats}
-                                    bounds={'.editor-div'}
-                                    placeholder='Enter text here...'
-                                />
-
-                            </div>
-                        </Segment>
-                    </Segment.Group>
-                    
+                    <NoteEditor handleModalClose={this.handleModalClose} />                                       
                 </Modal>
             </div>
         )           
