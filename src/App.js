@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { getBoards } from './actions/index'
 import { connect } from 'react-redux'
+import MainMenu from './components/mainMenu';
 
 const Container = styled.div`
   display: flex;
@@ -105,23 +106,26 @@ class App extends Component {
 
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd} >
-        <Droppable droppableId='all-columns' direction='horizontal' type='column'>
-          {(provided) => (
-            <Container
-              {...provided.droppableProps}
-              innerRef={provided.innerRef}
-            >
-              {this.state.columnOrder.map((columnId, index) => {
-                const column = this.state.columns[columnId]
-                const tasks = column.taskIds.map(taskId => this.state.tasks[taskId])
-                return <List key={column.id} column={column} index={index} tasks={tasks} />
-              })}
-              {provided.placeholder}
-            </Container>            
-          )}
-        </Droppable>
-      </DragDropContext>      
+    <div>
+        <MainMenu></MainMenu>
+        <DragDropContext onDragEnd={this.onDragEnd} >
+          <Droppable droppableId='all-columns' direction='horizontal' type='column'>
+            {(provided) => (
+              <Container
+                {...provided.droppableProps}
+                innerRef={provided.innerRef}
+              >
+                {this.state.columnOrder.map((columnId, index) => {
+                  const column = this.state.columns[columnId]
+                  const tasks = column.taskIds.map(taskId => this.state.tasks[taskId])
+                  return <List key={column.id} column={column} index={index} tasks={tasks} />
+                })}
+                {provided.placeholder}
+              </Container>            
+            )}
+          </Droppable>
+        </DragDropContext>                
+      </div>
     );
   }
 }

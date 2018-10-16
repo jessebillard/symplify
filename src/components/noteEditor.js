@@ -32,6 +32,7 @@ class NoteEditor extends React.Component {
     handleSubmit = () => {        
         this.props.handleModalClose()
         // create a dispatch method that will send the info to the backend
+        // this needs to have an id of the column sent as well to persist to backend
         this.props.createNote(this.state)
     }
 

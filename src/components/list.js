@@ -4,6 +4,8 @@ import Note from './note'
 import { Button, Icon, Modal } from 'semantic-ui-react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import NoteEditor from './noteEditor';
+import { selectedList } from '../actions/index'
+import { connect } from 'react-redux'
 
 const Container = styled.div`
     margin: 8px;
@@ -39,6 +41,7 @@ class List extends React.Component {
         this.setState({
             modalOpen: true
         })
+        this.props.selectedList()
     }
 
     handleModalClose = () => {
@@ -86,4 +89,4 @@ class List extends React.Component {
     }
 }
 
-export default List
+export default connect(null, { selectedList })(List)
