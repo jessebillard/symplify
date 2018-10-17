@@ -1,13 +1,36 @@
 import React from 'react'
 import { Menu, Icon, Modal, Segment, Input, Button, Divider, Grid } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
+import { createBoard } from '../actions/index'
+import { connect } from 'react-redux'
 
 class MainMenu extends React.Component {
 
     constructor() {
         super()
         this.state = {
-            modalOpen: false
+            modalOpen: false,
+            titleInput: '',            
+        }
+    }
+
+    handleInputChange = (e) => {
+        this.setState({
+            titleInput: e.target.value
+        })
+    }
+
+    handleSubmit = () => {
+        // makes a new board or list depending on what URL user is on
+        // use window.location.pathname to tell if on home/board page or lists page
+        const data = {
+            title: this.state.titleInput
+        }
+        if (window.location.pathname === '/') {            
+            this.props.createBoard(data)
+            this.setState({
+                modalOpen: false
+            })
         }
     }
 
@@ -50,10 +73,10 @@ class MainMenu extends React.Component {
                         <Segment textAlign='center'>  
                             <div className='title-input'>
                                 <div className='title-column'>
-                                    <Input placeholder='title...'/>                        
+                                    <Input onChange={this.handleInputChange} placeholder='title...'/>                        
                                 </div>
                                 <div className='title-column'>
-                                    <Button primary>
+                                    <Button primary onClick={this.handleSubmit}>
                                         Submit
                                     </Button>                                                                       
                                 </div>
@@ -66,4 +89,4 @@ class MainMenu extends React.Component {
     }
 }
 
-export default MainMenu
+export default connect(null, { createBoard })(MainMenu)

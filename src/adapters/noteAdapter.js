@@ -10,7 +10,7 @@ export class NoteAdapter {
             },
             body: JSON.stringify(data)
         }
-        return fetch(`${baseURL}/notes`, options).then(resp => resp.json()).then((note) => console.log(note))
+        return fetch(`${baseURL}/notes`, options).then(resp => resp.json())
     }
 
 }

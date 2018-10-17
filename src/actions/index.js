@@ -1,5 +1,6 @@
 import {
-    GET_BOARDS,    
+    GET_BOARDS, 
+    CREATE_BOARD,   
     CREATE_NOTE,
     SELECT_LIST,
     SELECT_BOARD
@@ -14,6 +15,18 @@ export const getBoards = () => {
                 dispatch ({
                     type: GET_BOARDS,
                     boards
+                })
+            })
+    }
+}
+
+export const createBoard = (boardTitle) => {
+    return dispatch => {
+        BoardAdapter.createBoard(boardTitle)
+            .then(board => {
+                dispatch({
+                    type: CREATE_BOARD,
+                    board
                 })
             })
     }

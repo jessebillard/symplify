@@ -12,6 +12,11 @@ export default (state = {
                 ...state,
                 boards: action.boards
             } 
+        case 'CREATE_BOARD':
+            return {
+                ...state,
+                boards: [...state.boards, action.board]
+            }
         case 'SELECT_LIST':
             return {
                 ...state,
