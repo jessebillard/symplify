@@ -10,7 +10,7 @@ export default (state = {
         case 'GET_BOARDS':            
             return {
                 ...state,
-                boards: [...state.boards, action.boards]
+                boards: action.boards
             } 
         case 'SELECT_LIST':
             return {

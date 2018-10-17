@@ -7,14 +7,8 @@ class MainMenu extends React.Component {
     constructor() {
         super()
         this.state = {
-            activeItem: ''
+            
         }
-    }
-
-    handleClick = (e) => {
-        this.setState({
-            activeItem: e.target.name
-        })
     }
 
     render() {
@@ -34,8 +28,7 @@ class MainMenu extends React.Component {
                     <Link to='/about'>
                         <Icon size='big' name='question circle' />
                     </Link>
-                </Menu.Item>                 
-                
+                </Menu.Item>                                 
             </Menu> 
         )
     }

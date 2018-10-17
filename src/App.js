@@ -6,7 +6,7 @@ import MainMenu from './components/mainMenu';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ListContainer from './components/listContainer';
 import AboutPage from './components/aboutPage';
-import HomePage from './components/homePage';
+import BoardContainer from './components/boardContainer';
 
 class App extends Component {
   
@@ -24,7 +24,7 @@ class App extends Component {
           <Switch>
             <Route path={'/board/:boardId'} component={ListContainer} />
             <Route path='/about' component={AboutPage} />
-            <Route path='/' component={HomePage} />
+            <Route path='/' component={BoardContainer} />
           </Switch>
         </React.Fragment>
       </Router>                      
