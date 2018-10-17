@@ -1,133 +1,41 @@
 import React, { Component } from 'react';
 import './App.css'
-import '@atlaskit/css-reset';
-import initialData from './initial-data';
-import List from './components/list.js'
-import styled from 'styled-components'
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { getBoards } from './actions/index'
 import { connect } from 'react-redux'
 import MainMenu from './components/mainMenu';
-
-const Container = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;  
-`
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ListContainer from './components/listContainer';
+import AboutPage from './components/aboutPage';
+import HomePage from './components/homePage';
 
 class App extends Component {
-  state = initialData
+  
 
   componentDidMount() {
     this.props.getBoards()
   }
 
-  onDragEnd = (result) => {
-    const { destination, source, draggableId, type } = result
 
-    // if no desination we return out
-    if (!destination) {
-      return
-    }
-
-    // if location of the destination and source id's are the same, we return out
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return 
-    }
-
-
-    if (type === 'column') {
-      const newColumnOrder = Array.from(this.state.columnOrder)
-      newColumnOrder.splice(source.index, 1)
-      newColumnOrder.splice(destination.index, 0, draggableId)
-      this.setState({
-        ...this.state,
-        columnOrder: newColumnOrder
-      })
-      return;
-    }
-    
-    
-    const start = this.state.columns[source.droppableId]
-    const finish = this.state.columns[destination.droppableId] 
-    
-    if (start === finish) {
-      const newTaskIds = Array.from(start.taskIds)
-    
-      newTaskIds.splice(source.index, 1)
-    
-      newTaskIds.splice(destination.index, 0, draggableId)
-      
-      const newColumn = {
-        ...start,
-        taskIds: newTaskIds
-      }
-  
-      this.setState({
-        ...this.state,
-        columns: {
-          ...this.state.columns,
-          [newColumn.id]: newColumn
-        }
-      })
-    } else {
-      const startTaskIds = Array.from(start.taskIds)
-      startTaskIds.splice(source.index, 1)
-      const newStart = {
-        ...start,
-        taskIds: startTaskIds
-      }
-  
-      const finishTaskIds = Array.from(finish.taskIds)
-      finishTaskIds.splice(destination.index, 0, draggableId)
-      const newFinish = {
-        ...finish,
-        taskIds: finishTaskIds
-      }
-  
-      this.setState({
-        ...this.state,
-        columns: {
-          ...this.state.columns,
-          [newStart.id]: newStart,
-          [newFinish.id]: newFinish
-        }
-      })
-    }
-    
-    // moving one list to another
-    
-
-
-  }
-
-  render() {
+  render() {    
     return (
-    <div>
-        <MainMenu></MainMenu>
-        <DragDropContext onDragEnd={this.onDragEnd} >
-          <Droppable droppableId='all-columns' direction='horizontal' type='column'>
-            {(provided) => (
-              <Container
-                {...provided.droppableProps}
-                innerRef={provided.innerRef}
-              >
-                {this.state.columnOrder.map((columnId, index) => {
-                  const column = this.state.columns[columnId]
-                  const tasks = column.taskIds.map(taskId => this.state.tasks[taskId])
-                  return <List key={column.id} column={column} index={index} tasks={tasks} />
-                })}
-                {provided.placeholder}
-              </Container>            
-            )}
-          </Droppable>
-        </DragDropContext>                
-      </div>
-    );
+      <Router>
+        <React.Fragment>
+          <MainMenu></MainMenu>          
+          <Switch>
+            <Route path={'/board/:boardId'} component={ListContainer} />
+            <Route path='/about' component={AboutPage} />
+            <Route path='/' component={HomePage} />
+          </Switch>
+        </React.Fragment>
+      </Router>                      
+    )
   }
 }
 
-export default connect(null, { getBoards })(App);
+const mapStateToProps = (state) => {
+  return {
+    boards: state.boards,
+  }
+}
+
+export default connect(mapStateToProps, { getBoards })(App);

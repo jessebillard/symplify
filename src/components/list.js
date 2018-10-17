@@ -41,7 +41,7 @@ class List extends React.Component {
         this.setState({
             modalOpen: true
         })
-        this.props.selectedList()
+        this.props.selectedList(this.props.column.id)
     }
 
     handleModalClose = () => {
@@ -50,7 +50,7 @@ class List extends React.Component {
         })
     }
 
-    render() {
+    render() {    
         return (
             <div>
                 <Draggable draggableId={this.props.column.id} index={this.props.index}>

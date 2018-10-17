@@ -3,6 +3,7 @@ export default (state = {
     tasks: [], 
     lists: [],
     selectedList: '',
+    selectedBoard: '',
     listOrder: [] 
 }, action) => {
     switch (action.type) {
@@ -15,6 +16,11 @@ export default (state = {
             return {
                 ...state,
                 selectedList: action.list
+            }
+        case 'SELECT_BOARD':
+            return {
+                ...state,
+                selectedBoard: action.board
             }
         default:
             return state

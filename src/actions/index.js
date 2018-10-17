@@ -1,7 +1,8 @@
 import {
     GET_BOARDS,    
     CREATE_NOTE,
-    SELECT_LIST
+    SELECT_LIST,
+    SELECT_BOARD
 } from './types'
 import { BoardAdapter } from '../adapters/boardAdapter'
 import { NoteAdapter } from '../adapters/noteAdapter'
@@ -25,9 +26,16 @@ export const createNote = (data) => {
     }
 }
 
-export const selectedList = (id) => {
+export const selectedList = (list) => {
     return {
         type: SELECT_LIST,
-        list: id
+        list
+    }
+}
+
+export const selectedBoard = (board) => {
+    return {
+        type: SELECT_BOARD,
+        board
     }
 }

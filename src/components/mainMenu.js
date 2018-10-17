@@ -1,5 +1,6 @@
 import React from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Icon } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
 
 class MainMenu extends React.Component {
 
@@ -19,9 +20,22 @@ class MainMenu extends React.Component {
     render() {
         return (
             <Menu fluid widths={3}>
-                <Menu.Item name='New List' active={this.state.activeItem === 'New List'} onClick={this.handleClick} />
-                <Menu.Item name='Home' active={this.state.activeItem === 'Home'} onClick={this.handleClick} />
-                <Menu.Item name='IDK YET' active={this.state.activeItem === 'IDK YET'} onClick={this.handleClick} />
+                <Menu.Item>
+                    <Icon size='big' name='plus' />
+                </Menu.Item>
+                
+                <Menu.Item >
+                    <Link to='/'>
+                        <Icon size='big' name='home' />
+                    </Link>
+                </Menu.Item>
+                
+                <Menu.Item>
+                    <Link to='/about'>
+                        <Icon size='big' name='question circle' />
+                    </Link>
+                </Menu.Item>                 
+                
             </Menu> 
         )
     }
