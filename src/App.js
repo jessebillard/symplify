@@ -15,7 +15,6 @@ class App extends Component {
     this.props.getBoards()
   }
 
-
   render() {    
     return (
       <Router>

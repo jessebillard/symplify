@@ -57,8 +57,7 @@ class MainMenu extends React.Component {
                         <Link to='/'>
                             <Icon size='big' name='home' />
                         </Link>
-                    </Menu.Item>
-                    
+                    </Menu.Item>                    
                     <Menu.Item>
                         <Link to='/about'>
                             <Icon size='big' name='question circle' />

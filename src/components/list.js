@@ -41,7 +41,7 @@ class List extends React.Component {
         this.setState({
             modalOpen: true
         })
-        this.props.selectedList(this.props.column.id)
+        this.props.selectedList(this.props.list.id)
     }
 
     handleModalClose = () => {
@@ -53,21 +53,21 @@ class List extends React.Component {
     render() {    
         return (
             <div>
-                <Draggable draggableId={this.props.column.id} index={this.props.index}>
+                <Draggable draggableId={this.props.list.id.toString()} index={this.props.index}>
                     {(provided) => (
                         <Container
                             {...provided.draggableProps}
                             innerRef={provided.innerRef}
                         >
-                            <Title {...provided.dragHandleProps}>{this.props.column.title}</Title>
-                            <Droppable droppableId={this.props.column.id} type='task'>
+                            <Title {...provided.dragHandleProps}>{this.props.list.title}</Title>
+                            <Droppable droppableId={this.props.list.id.toString()} type='note'>
                                 {(provided, snapshot) => (
                                     <NoteList
                                         isDraggingOver={snapshot.isDraggingOver}
                                         {...provided.droppableProps} 
                                         innerRef={provided.innerRef}
                                     >
-                                        {this.props.tasks.map((task, index) => <Note key={task.id} index={index} task={task} />)}
+                                        {this.props.notes.map((note, index) => <Note key={note.id} index={index} note={note} />)}
                                         {provided.placeholder}
                                     </NoteList>
                                 )}

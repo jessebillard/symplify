@@ -33,7 +33,12 @@ class NoteEditor extends React.Component {
         this.props.handleModalClose()
         // create a dispatch method that will send the info to the backend
         // this needs to have an id of the column sent as well to persist to backend
-        this.props.createNote(this.state)
+        const noteData = {
+            title: this.state.title,
+            description: this.state.description,
+            listId: this.props.selectedListId
+        }
+        this.props.createNote(noteData)
     }
 
     render() {
@@ -73,4 +78,10 @@ class NoteEditor extends React.Component {
     }
 }
 
-export default connect(null, { createNote })(NoteEditor)
+const mapStateToProps = (state) => {
+    return {
+        selectedListId: state.selectedListId
+    }
+}
+
+export default connect(mapStateToProps, { createNote })(NoteEditor)

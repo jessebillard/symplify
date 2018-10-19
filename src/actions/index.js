@@ -1,12 +1,14 @@
 import {
     GET_BOARDS, 
-    CREATE_BOARD,   
+    CREATE_BOARD, 
+    GET_LISTS,  
     CREATE_NOTE,
     SELECT_LIST,
     SELECT_BOARD
 } from './types'
 import { BoardAdapter } from '../adapters/boardAdapter'
 import { NoteAdapter } from '../adapters/noteAdapter'
+import { ListAdapter } from '../adapters/listAdapter'
 
 export const getBoards = () => {
     return dispatch => {
@@ -32,17 +34,34 @@ export const createBoard = (boardTitle) => {
     }
 }
 
-export const createNote = (data) => {
+export const getLists = () => {
     return dispatch => {
-        NoteAdapter.createNote(data)
-            
+        ListAdapter.getLists()
+            .then(lists => {
+                dispatch({
+                    type: GET_LISTS,
+                    lists
+                })
+            })
     }
 }
 
-export const selectedList = (list) => {
+export const createNote = (data) => {
+    return dispatch => {
+        NoteAdapter.createNote(data)
+            .then(note => {
+                dispatch({
+                    type: CREATE_NOTE,
+                    note
+                })
+            })
+    }
+}
+
+export const selectedList = (listId) => {
     return {
         type: SELECT_LIST,
-        list
+        listId
     }
 }
 

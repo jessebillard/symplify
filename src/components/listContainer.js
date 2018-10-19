@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import '@atlaskit/css-reset';
+import { connect } from 'react-redux'
+import List from './list'
 
 const Container = styled.div`
   display: flex;
@@ -11,7 +13,7 @@ const Container = styled.div`
 
 class ListContainer extends React.Component {
 
-    // onDragEnd = (result) => {
+    onDragEnd = (result) => {
     //     const { destination, source, draggableId, type } = result
     
         // if no desination we return out
@@ -86,32 +88,34 @@ class ListContainer extends React.Component {
     //         }
     //       })
     //     }
-    // }
-
-    render() {
-        return (
-            <div/>
-            // <DragDropContext onDragEnd={this.onDragEnd} >
-            //     <Droppable droppableId='all-columns' direction='horizontal' type='column'>
-            //         {(provided) => (
-            //         <Container
-            //             {...provided.droppableProps}
-            //             innerRef={provided.innerRef}
-            //         >
-            //             {this.state.columnOrder.map((columnId, index) => {
-            //             const column = this.state.columns[columnId]
-            //             const tasks = column.taskIds.map(taskId => this.state.tasks[taskId])
-            //             return <List key={column.id} column={column} index={index} tasks={tasks} />
-            //             })}
-            //             {provided.placeholder}
-            //         </Container>            
-            //         )}
-            //     </Droppable>
-            // </DragDropContext>
-
-        )
     }
 
+    render() {  
+        console.log(this.props.lists)             
+        return (            
+            <DragDropContext onDragEnd={this.onDragEnd} >
+                <Droppable droppableId='all-columns' direction='horizontal' type='column'>
+                    {(provided) => (
+                    <Container
+                        {...provided.droppableProps}
+                        innerRef={provided.innerRef}
+                    >
+                        {this.props.lists.map((list, index) => {                                                                           
+                            return <List key={list.id} list={list} index={index} notes={list.notes} />
+                        })}
+                        {provided.placeholder}
+                    </Container>            
+                    )}
+                </Droppable>
+            </DragDropContext>
+        )
+    }
 }
 
-export default ListContainer
+const mapStateToProps = (state) => {
+    return {
+        lists: state.lists
+    }
+}
+
+export default connect(mapStateToProps)(ListContainer)

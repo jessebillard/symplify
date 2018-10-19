@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectedBoard } from '../actions/index'
+import { getLists } from '../actions/index'
 import BoardCard from './boardCard';
 
 class BoardContainer extends React.Component {
     
+    componentDidMount() {
+        this.props.getLists()
+    }
+
     render() {
-        const { boards } = this.props
-        // console.log(boards)        
+        const { boards } = this.props              
         return (
             <div className='flex-grid'>
                 {boards.map((board, index) => <BoardCard board={board} key={index} />)}
@@ -22,4 +25,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { selectedBoard })(BoardContainer);
+export default connect(mapStateToProps, { getLists })(BoardContainer);

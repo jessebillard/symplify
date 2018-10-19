@@ -6,8 +6,8 @@ import { selectedBoard } from '../actions/index'
 
 class BoardCard extends React.Component {
     
-    handleClick = () => {
-        this.props.selectedBoard(this.props.board)
+    handleClick = () => {        
+        this.props.selectedBoard(this.props.board)        
     }
 
     render() {
