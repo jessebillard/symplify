@@ -91,7 +91,7 @@ class ListContainer extends React.Component {
     }
 
     render() {  
-        console.log(this.props.lists)             
+        // console.log(this.props.lists)             
         return (            
             <DragDropContext onDragEnd={this.onDragEnd} >
                 <Droppable droppableId='all-columns' direction='horizontal' type='column'>
