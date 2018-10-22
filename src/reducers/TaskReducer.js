@@ -1,5 +1,5 @@
 import initialData from '../initial-data'
-export default (state = Object.assign({selectedBoard: '', selectedLists: ''}, initialData), action) => {
+export default (state = Object.assign({selectedBoard: '', selectedLists: '', selectedListId: ''}, initialData), action) => {
     switch (action.type) {
         
         case 'CREATE_BOARD':
@@ -18,11 +18,11 @@ export default (state = Object.assign({selectedBoard: '', selectedLists: ''}, in
                 ...state,
                 lists: action.lists
             }
-        // case 'SELECT_LIST':
-        //     return {
-        //         ...state,
-        //         selectedListId: action.listId
-        //     }
+        case 'SELECT_LIST':
+            return {
+                ...state,
+                selectedListId: action.listId
+            }
         case 'SELECT_BOARD':
             const lists = state.lists.filter(list => list.boardId === action.board.id)
             return {
@@ -30,17 +30,18 @@ export default (state = Object.assign({selectedBoard: '', selectedLists: ''}, in
                 selectedBoard: action.board,
                 selectedLists: lists
             }
-        // case 'CREATE_NOTE':
-        //     const listsCopy = [...state.lists]
-        //     const list = listsCopy.find(list => list.id === state.selectedListId)
-        //     const newList = Object.assign({}, list)
-        //     newList.notes.unshift(action.note)
-        //     const index = listsCopy.indexOf(list)
-        //     listsCopy.splice(index, 1, newList)
-        //     return {
-        //         ...state, 
-        //         lists: listsCopy               
-        //     }
+        case 'CREATE_NOTE':
+            const listsCopy = [...state.selectedLists]
+            const listCopy = listsCopy.find(list => list.id === state.selectedListId) 
+            const completeNote = Object.assign({id: state.noteIdCounter += 1}, action.note)   
+            const notesCopy = [...state.notes]
+            notesCopy.push(completeNote)        
+            listCopy.noteOrder.unshift(completeNote.id)
+            return {
+                ...state, 
+                selectedLists: listsCopy,
+                notes: notesCopy               
+            }
         default:
             return state
     }

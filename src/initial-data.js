@@ -9,20 +9,20 @@ const initialData = {
         {id: 4, title: 'bored board', lists: ['list-10', 'list-11', 'list-12'], listOrder: ['list-10', 'list-11', 'list-12']}
     ],
     notes: [
-        { id: 1, listId: 1, title: 'take out the garbage'},
-        { id: 2, listId: 1, title: 'watch the toobe'},
-        { id: 3, listId: 1, title: 'buy the foods'},
-        { id: 4, listId: 4, title: 'eat the foods'},
-        { id: 5, listId: 4, title: 'be boi'},
-        { id: 6, listId: 7, title: 'find bae'},
-        { id: 7, listId: 7, title: 'where is bae?'},
-        { id: 8, listId: 10, title: 'so goooood'},
+        { id: 1, listId: 1, description: 'it smelling', title: 'take out the garbage'},
+        { id: 2, listId: 1, description: 'anime fersure', title: 'watch the toobe'},
+        { id: 3, listId: 1, description: 'ALL THE FOODS', title: 'buy the foods'},
+        { id: 4, listId: 4, description: 'ALL THE FOODS MUST BE EATING', title: 'eat the foods'},
+        { id: 5, listId: 4, description: 'best boi', title: 'be boi'},
+        { id: 6, listId: 7, description: 'need bae', title: 'find bae'},
+        { id: 7, listId: 7, description: 'calling for you bae', title: 'where is bae?'},
+        { id: 8, listId: 10, description: 'g doulbe o D',  title: 'so goooood'},
     ],
     lists: [
         {
             id: 1,
             title: 'To do',
-            noteOrder: ['note-1', 'note-2', 'note-3'],
+            noteOrder: [1, 2, 3],
             boardId: 1
         },
         {
@@ -40,7 +40,7 @@ const initialData = {
         {
             id: 4,
             title: 'test',
-            noteOrder: ['note-5', 'note-4'],
+            noteOrder: [4, 5],
             boardId: 2
         },
         {
@@ -58,7 +58,7 @@ const initialData = {
         {
             id: 7,
             title: 'sickness',
-            noteOrder: ['note-6', 'note-7'],
+            noteOrder: [6, 7],
             boardId: 3
         },
         {
@@ -76,7 +76,7 @@ const initialData = {
         {
             id: 10,
             title: 'dumpling king',
-            noteOrder: ['note-8'],
+            noteOrder: [8],
             boardId: 4
         },
         {
