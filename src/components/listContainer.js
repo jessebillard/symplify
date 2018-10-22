@@ -100,8 +100,9 @@ class ListContainer extends React.Component {
                         {...provided.droppableProps}
                         innerRef={provided.innerRef}
                     >
-                        {this.props.lists.map((list, index) => {                                                                           
-                            return <List key={list.id} list={list} index={index} notes={list.notes} />
+                        {this.props.lists.map((list, index) => {  
+                            const notes = this.props.notes.filter(note => note.listId === list.id)                                                                        
+                            return <List key={list.id} list={list} index={index} notes={notes} />
                         })}
                         {provided.placeholder}
                     </Container>            
@@ -114,7 +115,9 @@ class ListContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        lists: state.lists
+        selectedBoard: state.selectedBoard,
+        lists: state.selectedLists,
+        notes: state.notes
     }
 }
 
