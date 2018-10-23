@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu, Icon, Modal, Segment, Input, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
-import { createBoard } from '../actions/index'
+import { createBoard, createList } from '../actions/index'
 import { connect } from 'react-redux'
 
 class MainMenu extends React.Component {
@@ -20,11 +20,14 @@ class MainMenu extends React.Component {
         })
     }
 
-    handleSubmit = () => {
-        // makes a new board or list depending on what URL user is on
-        // use window.location.pathname to tell if on home/board page or lists page        
+    handleSubmit = () => {        
         if (window.location.pathname === '/') {            
             this.props.createBoard(this.state.titleInput)
+            this.setState({
+                modalOpen: false
+            })
+        } else {
+            this.props.createList(this.state.titleInput)
             this.setState({
                 modalOpen: false
             })
@@ -64,7 +67,7 @@ class MainMenu extends React.Component {
                 <Modal size='tiny' open={this.state.modalOpen} onClose={this.handleModalClose}>
                     <Segment.Group>
                         <Segment textAlign='center'>
-                            <h1>Give this Board a title!</h1>
+                            {window.location.pathname === '/' ? <h1>Give this Board a title!</h1> : <h1>Give this List a title!</h1> }                            
                         </Segment>
                         <Segment textAlign='center'>  
                             <div className='title-input'>
@@ -85,4 +88,4 @@ class MainMenu extends React.Component {
     }
 }
 
-export default connect(null, { createBoard })(MainMenu)
+export default connect(null, { createBoard, createList })(MainMenu)

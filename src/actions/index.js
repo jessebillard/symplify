@@ -2,8 +2,13 @@ import {
     CREATE_BOARD, 
     GET_LISTS,  
     CREATE_NOTE,
+    CREATE_LIST,
     SELECT_LIST,
-    SELECT_BOARD
+    DELETE_BOARD,
+    SELECT_BOARD,
+    SELECT_NOTE,
+    DESELCT_NOTE,
+    EDIT_NOTE
 } from './types'
 
 export const createBoard = (boardTitle) => {
@@ -33,3 +38,40 @@ export const createNote = (note) => {
         note
     }
 }
+
+export const createList = (listTitle) => {
+    return {
+        type: CREATE_LIST,
+        listTitle
+    }
+}
+
+export const deleteBoard = (boardId) => {
+    return {
+        type: DELETE_BOARD,
+        boardId
+    }
+}
+
+export const selectNote = (note) => {
+    return {
+        type: SELECT_NOTE,
+        note
+    }
+}
+
+export const deselectNote = () => {
+    return {
+        type: DESELCT_NOTE,
+        payload: 's'
+    }
+}
+
+export const editNote = (note, id) => {
+    return {
+        type: EDIT_NOTE,
+        note,
+        id
+    }
+}
+

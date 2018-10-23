@@ -3,10 +3,10 @@ const initialData = {
     listIdCounter: 12,
     noteIdCounter: 8,
     boards: [
-        {id: 1, title: 'sick board', lists: ['list-1', 'list-2', 'list-3'], listOrder: ['list-1', 'list-2', 'list-3']},
-        {id: 2, title: 'on board', lists: ['list-4', 'list-5', 'list-6'], listOrder: ['list-4', 'list-5', 'list-6']},
-        {id: 3, title: 'so board', lists: ['list-7', 'list-8', 'list-9'], listOrder: ['list-7', 'list-8', 'list-9']},
-        {id: 4, title: 'bored board', lists: ['list-10', 'list-11', 'list-12'], listOrder: ['list-10', 'list-11', 'list-12']}
+        {id: 1, title: 'sick board', listOrder: ['list-1', 'list-2', 'list-3']},
+        {id: 2, title: 'on board', listOrder: ['list-4', 'list-5', 'list-6']},
+        {id: 3, title: 'so board', listOrder: ['list-7', 'list-8', 'list-9']},
+        {id: 4, title: 'bored board', listOrder: ['list-10', 'list-11', 'list-12']}
     ],
     notes: [
         { id: 1, listId: 1, description: 'it smelling', title: 'take out the garbage'},
