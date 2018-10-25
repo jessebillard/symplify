@@ -7,8 +7,9 @@ import {
     DELETE_BOARD,
     SELECT_BOARD,
     SELECT_NOTE,
-    DESELCT_NOTE,
-    EDIT_NOTE
+    DESELECT_NOTE,
+    EDIT_NOTE,
+    DELETE_LIST
 } from './types'
 
 export const createBoard = (boardTitle) => {
@@ -62,7 +63,7 @@ export const selectNote = (note) => {
 
 export const deselectNote = () => {
     return {
-        type: DESELCT_NOTE,
+        type: DESELECT_NOTE,
         payload: 's'
     }
 }
@@ -75,3 +76,9 @@ export const editNote = (note, id) => {
     }
 }
 
+export const deleteList = (listId) => {
+    return {
+        type: DELETE_LIST,
+        listId
+    }
+}

@@ -43,3 +43,15 @@
 .clearfix {
   overflow: auto;
 }
+
+.list-title-row {
+  display: flex;
+}
+
+.list-title-column {
+  flex: 90%;
+}
+
+.list-option-column {
+  flex: 10%;
+}

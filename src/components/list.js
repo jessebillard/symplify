@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import Note from './note'
-import { Button, Icon, Modal } from 'semantic-ui-react'
+import { Button, Icon, Modal, Dropdown } from 'semantic-ui-react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import NoteEditor from './noteEditor';
-import { selectedList } from '../actions/index'
+import { selectedList, deleteList } from '../actions/index'
 import { connect } from 'react-redux'
 
 const Container = styled.div`
@@ -33,7 +33,7 @@ class List extends React.Component {
     constructor() {
         super()
         this.state = {
-            modalOpen: false
+            modalOpen: false,            
         }
     }
 
@@ -49,8 +49,26 @@ class List extends React.Component {
             modalOpen: false
         })
     }
+    
+    renderOptionsDropDown = () => {
+       return <Dropdown onClose={this.handleDropdownSelection}>
+                <Dropdown.Menu>
+                    <Dropdown.Item text='Edit Title' />
+                    <Dropdown.Item text='Delete List' />         
+                </Dropdown.Menu>
+            </Dropdown>
+    }
+
+    handleDropdownSelection = (e) => {        
+        // debugger
+        if (e.target.innerText === 'Delete List') {
+            // debugger
+            this.props.deleteList(this.props.list.id)
+        }
+    }
 
     render() {    
+        // const dropdownOptions = [{key: 'Edit Title', text: 'Edit Title'}, { key: 'Delete', text: 'Delete List' }]
         return (
             <div>
                 <Draggable draggableId={this.props.list.id.toString()} index={this.props.index}>
@@ -58,8 +76,13 @@ class List extends React.Component {
                         <Container
                             {...provided.draggableProps}
                             innerRef={provided.innerRef}
-                        >
-                            <Title {...provided.dragHandleProps}>{this.props.list.title}</Title>
+                        >   
+                            <div className='list-title-row'>
+                                <Title className='list-title-column' {...provided.dragHandleProps}>{this.props.list.title}</Title>
+                                <div style={{margin: '5px'}}>
+                                    {this.renderOptionsDropDown()}
+                                </div>
+                            </div>
                             <Droppable droppableId={this.props.list.id.toString()} type='note'>
                                 {(provided, snapshot) => (
                                     <NoteList
@@ -89,4 +112,4 @@ class List extends React.Component {
     }
 }
 
-export default connect(null, { selectedList })(List)
+export default connect(null, { selectedList, deleteList })(List)

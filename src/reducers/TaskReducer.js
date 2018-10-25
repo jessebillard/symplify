@@ -75,8 +75,7 @@ export default (
                 ...state,
                 selectedNote: ''
             }
-        case 'EDIT_NOTE': 
-            // debugger;
+        case 'EDIT_NOTE':             
             const editNotesCopy = [...state.notes]
             const newEditedNote = editNotesCopy.find(note => note.id === action.id)
             newEditedNote.title = action.note.title
@@ -85,6 +84,17 @@ export default (
                 ...state,
                 notes: editNotesCopy
             }
+        case 'DELETE_LIST':            
+            const filteredLists = state.lists.filter(list => list.id !== action.listId)
+            const filteredNotes = state.notes.filter(note => note.listId !== action.listId)
+            const filteredSelectedLists = state.selectedLists.filter(list => list.id !== action.listId)            
+            return {
+                ...state,
+                lists: filteredLists,
+                notes: filteredNotes,
+                selectedLists: filteredSelectedLists
+            }
+
         default:
             return state
     }
