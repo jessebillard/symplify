@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import Note from './note'
-import { Button, Icon, Modal, Dropdown } from 'semantic-ui-react'
+import { Button, Icon, Modal, Dropdown, Form } from 'semantic-ui-react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import NoteEditor from './noteEditor';
-import { selectedList, deleteList } from '../actions/index'
+import { selectedList, deleteList, editListTitle } from '../actions/index'
 import { connect } from 'react-redux'
 
 const Container = styled.div`
@@ -33,7 +33,9 @@ class List extends React.Component {
     constructor() {
         super()
         this.state = {
-            modalOpen: false,            
+            modalOpen: false,
+            isEditingTitle: false,
+            newTitle: ''         
         }
     }
 
@@ -59,16 +61,39 @@ class List extends React.Component {
             </Dropdown>
     }
 
-    handleDropdownSelection = (e) => {        
-        // debugger
-        if (e.target.innerText === 'Delete List') {
-            // debugger
-            this.props.deleteList(this.props.list.id)
+    handleDropdownSelection = (e) => {                
+        if (e) {
+            if (e.target.innerText === 'Delete List') {             
+                this.props.deleteList(this.props.list.id)
+            } else if (e.target.innerText === 'Edit Title') {
+                this.setState({
+                    isEditingTitle: true
+                })
+            }
         }
     }
 
-    render() {    
-        // const dropdownOptions = [{key: 'Edit Title', text: 'Edit Title'}, { key: 'Delete', text: 'Delete List' }]
+    renderTitleEditInput = () => {
+        return <Form onSubmit={this.handleNewTitleSubmit}>
+                 <Form.Input placeholder={this.props.list.title} onChange={this.handleTitleEdit}/>
+               </Form>
+    }
+
+    handleTitleEdit = (e) => {
+        this.setState({
+            newTitle: e.target.value
+        })
+        this.props.selectedList(this.props.list.id)
+    }
+
+    handleNewTitleSubmit = () => {               
+        this.props.editListTitle(this.state.newTitle)       
+        this.setState({
+            isEditingTitle: false
+        })
+    }
+
+    render() {            
         return (
             <div>
                 <Draggable draggableId={this.props.list.id.toString()} index={this.props.index}>
@@ -78,9 +103,9 @@ class List extends React.Component {
                             innerRef={provided.innerRef}
                         >   
                             <div className='list-title-row'>
-                                <Title className='list-title-column' {...provided.dragHandleProps}>{this.props.list.title}</Title>
+                                <Title className='list-title-column' {...provided.dragHandleProps}>{this.state.isEditingTitle ? this.renderTitleEditInput() : this.props.list.title}</Title>
                                 <div style={{margin: '5px'}}>
-                                    {this.renderOptionsDropDown()}
+                                    {this.state.isEditingTitle ? '' : this.renderOptionsDropDown()}
                                 </div>
                             </div>
                             <Droppable droppableId={this.props.list.id.toString()} type='note'>
@@ -112,4 +137,4 @@ class List extends React.Component {
     }
 }
 
-export default connect(null, { selectedList, deleteList })(List)
+export default connect(null, { selectedList, deleteList, editListTitle })(List)

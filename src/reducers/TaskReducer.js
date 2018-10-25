@@ -94,7 +94,19 @@ export default (
                 notes: filteredNotes,
                 selectedLists: filteredSelectedLists
             }
-
+        case 'EDIT_LIST_TITLE':
+            const listEditCopy = [...state.selectedLists]
+            const listToChangeTitle = listEditCopy.find(list => list.id === state.selectedListId)
+            const newListCopy = Object.assign({}, listToChangeTitle)
+            newListCopy.title = action.listTitle
+            const mainListCopy = [...state.lists]
+            const mainListToChangeTitle = mainListCopy.find(list => list.id === state.selectedListId)
+            mainListToChangeTitle.title = action.listTitle
+            return {
+                ...state,
+                selectedLists: listEditCopy,
+                lists: mainListCopy
+            }
         default:
             return state
     }
