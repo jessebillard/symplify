@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Button, Modal, Segment, Input } from 'semantic-ui-react'
+import { Card, Icon, Button, Dropdown, Modal, Segment, Input } from 'semantic-ui-react'
 import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { selectedBoard, deleteBoard } from '../actions/index'
@@ -9,11 +9,9 @@ class BoardCard extends React.Component {
     
     constructor() {
         super()
-        this.state = {
-            isMouseOver: false,
-            modalOpen: false,
+        this.state = {                        
             titleInput: '',
-            boardLinkActive: true
+            boardLinkActive: false
         }
     }
 
@@ -21,50 +19,17 @@ class BoardCard extends React.Component {
         this.props.selectedBoard(this.props.board)        
     }
 
-    mouseEnterCard = () => {
-        this.setState({
-            isMouseOver: !this.state.isMouseOver
-        })
-    }
+    renderBoardOptionsDropDown = () => {
+        return <Dropdown className="list-option-column" onClick={(e) => e.preventDefault()} onClose={this.handleDropdownSelection}>
+                 <Dropdown.Menu>
+                     <Dropdown.Item text='Edit Title' />
+                     <Dropdown.Item text='Delete Board' />         
+                 </Dropdown.Menu>
+             </Dropdown>
+     }   
 
-    mouseLeaveCard = () => {
-        this.setState({
-            isMouseOver: !this.state.isMouseOver
-        })
-    }
-
-    mouseEnterOptions = () => {
-        this.setState({
-            boardLinkActive: !this.state.boardLinkActive
-        })
-    }
-
-    mouseLeaveOptions = () => {
-        this.setState({
-            boardLinkActive: !this.state.boardLinkActive
-        })
-    }
-
-    renderOptionsButton = () => {
-        return (
-            <div className='delete-icon' onMouseEnter={this.mouseEnterOptions} onMouseLeave={this.mouseLeaveOptions}>
-                <Button size='mini' icon onClick={this.handleModalOpen} >
-                    <Icon size='large' name='ellipsis horizontal'/>                                            
-                </Button>
-            </div>
-        )
-    }
-
-    handleModalOpen = () => {
-        this.setState({
-            modalOpen: true
-        })
-    }
-
-    handleModalClose = () => {
-        this.setState({
-            modalOpen: false
-        })
+    handleDropdownSelection = () => {
+        debugger
     }
 
     handleDeleteBoard = (e) => {
@@ -84,41 +49,21 @@ class BoardCard extends React.Component {
     }
 
     boardLinkActive = () => {
-        return this.state.boardLinkActive
+        return false
     }
 
     render() {
-        const { board } = this.props
-        console.log(this.state.boardLinkActive)
+        const { board } = this.props        
         return (
             <div className="col">
                 <NavLink to={`board/${board.id}`} isActive={this.boardLinkActive}>
                     <Card fluid raised={true} onClick={this.handleClick} onMouseEnter={this.mouseEnterCard} onMouseLeave={this.mouseLeaveCard}>
-                        <Card.Content className="clearfix">
-                            {this.state.isMouseOver ? this.renderOptionsButton() : ''}  
-                            <Card.Header>{board.title}</Card.Header>
+                        <Card.Content className="list-title-row">                            
+                            <Card.Header className="list-title-column">{board.title}</Card.Header>                                
+                            {this.renderBoardOptionsDropDown()}
                         </Card.Content>                                              
                     </Card>
-                </NavLink>
-                <Modal size='tiny' open={this.state.modalOpen} onClose={this.handleModalClose}>
-                    <Segment.Group>
-                        <Segment textAlign='center'>
-                            <h1>Edit Board Title!</h1>
-                        </Segment>
-                        <Segment textAlign='center'>  
-                            <div className='title-input'>
-                                <div className='title-column'>
-                                    <Input onChange={this.handleInputChange} placeholder='title...'/>                        
-                                </div>
-                                <div className='title-column'>
-                                    <Button primary onClick={this.handleSubmit}>
-                                        Submit
-                                    </Button>                                                                       
-                                </div>
-                            </div>                          
-                        </Segment>
-                    </Segment.Group>
-                </Modal>
+                </NavLink>                
             </div>        
         )
     }

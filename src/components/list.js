@@ -121,7 +121,7 @@ class List extends React.Component {
                                 )}
                             </Droppable>
                             <div>
-                                <Button onClick={this.onAddNoteClick} compact fluid icon labelPosition='left'>
+                                <Button basic onClick={this.onAddNoteClick} compact fluid icon labelPosition='left'>
                                     <Icon name='plus'/>
                                     Add Note...
                                 </Button>

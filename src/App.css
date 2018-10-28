@@ -55,3 +55,15 @@
 .list-option-column {
   flex: 10%;
 }
+
+.board-title-row {
+  display: flex;
+}
+
+.board-title-col {
+  flex: 90%;
+}
+
+.board-option-col {
+  flex: 10%;
+}
