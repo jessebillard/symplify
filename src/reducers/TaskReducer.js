@@ -5,7 +5,7 @@ export default (
         selectedLists: '', 
         selectedListId: '',
         selectedNote: ''
-    }, initialData), action) => {
+    }, initialData), action) => {        
     switch (action.type) {        
         case 'CREATE_BOARD':
             const newBoard = {
@@ -29,6 +29,7 @@ export default (
                 selectedListId: action.listId
             }
         case 'SELECT_BOARD':
+            console.log('state.lists:', state.lists)
             const lists = state.lists.filter(list => list.boardId === action.board.id)
             return {
                 ...state,
@@ -47,7 +48,7 @@ export default (
                 selectedLists: listsCopy,
                 notes: notesCopy               
             }
-        case 'CREATE_LIST': 
+        case 'CREATE_LIST':             
             const newList = {
                 id: state.listIdCounter++,
                 title: action.listTitle,
@@ -59,10 +60,14 @@ export default (
                 lists: [...state.lists, newList],
                 selectedLists: [...state.selectedLists, newList]
             }
-        case 'DELETE_BOARD':            
+        case 'DELETE_BOARD':  
+            // why is this getting hit automatically when the boardCard component mounts?!?!
+            console.log('delete reducer case hit')  
+            console.log(action)        
             const boardsCopy = [...state.boards]
             const filteredBoards = boardsCopy.filter(board => board.id !== action.boardId)            
             return {
+                ...state,
                 boards: filteredBoards
             }
         case 'SELECT_NOTE':            
