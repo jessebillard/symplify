@@ -107,6 +107,14 @@ export default (
                 selectedLists: listEditCopy,
                 lists: mainListCopy
             }
+        case 'EDIT_BOARD_TITLE':
+            const boardsEditCopy = [...state.boards]
+            const boardToChangeTitle = boardsEditCopy.find(board => board.id === action.boardId)
+            boardToChangeTitle.title = action.newBoardTitle
+            return {
+                ...state,
+                boards: boardsEditCopy
+            }
         default:
             return state
     }

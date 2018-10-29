@@ -9,6 +9,7 @@ import {
     SELECT_NOTE,
     DESELECT_NOTE,
     EDIT_NOTE,
+    EDIT_BOARD_TITLE,
     EDIT_LIST_TITLE,
     DELETE_LIST
 } from './types'
@@ -88,5 +89,13 @@ export const editListTitle = (listTitle) => {
     return {
         type: EDIT_LIST_TITLE,
         listTitle
+    }
+}
+
+export const editBoardTitle = (newBoardTitle, boardId) => {
+    return {
+        type: EDIT_BOARD_TITLE,
+        boardId,
+        newBoardTitle
     }
 }

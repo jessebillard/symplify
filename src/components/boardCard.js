@@ -1,9 +1,8 @@
 import React from 'react'
-import { Card, Icon, Button, Dropdown, Modal, Segment, Input } from 'semantic-ui-react'
-import { NavLink, Link } from 'react-router-dom'
+import { Card, Dropdown, Form } from 'semantic-ui-react'
+import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { selectedBoard, deleteBoard } from '../actions/index'
-import classNames from 'classnames'
+import { selectedBoard, deleteBoard, editBoardTitle } from '../actions/index'
 
 class BoardCard extends React.Component {
     
@@ -11,7 +10,7 @@ class BoardCard extends React.Component {
         super()
         this.state = {                        
             titleInput: '',
-            boardLinkActive: false
+            isEditingTitle: false
         }
     }
 
@@ -28,14 +27,29 @@ class BoardCard extends React.Component {
              </Dropdown>
      }   
 
-    handleDropdownSelection = () => {
-        debugger
+    handleDropdownSelection = (e) => {
+        if (e.target.innerText === 'Delete Board') {
+            this.props.deleteBoard(this.props.board.id)
+        } else if (e.target.innerText === 'Edit Title') {
+            this.setState({
+                isEditingTitle: true
+            })            
+        }
     }
 
-    handleDeleteBoard = (e) => {
-        e.stopPropagation()
-        e.preventDefault()
-        // this.props.deleteBoard(this.props.board.id)
+    renderTitleInput = () => {
+        return (
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Input placeholder={this.props.board.title} onClick={(e) => e.preventDefault()} onChange={this.handleInputChange} />
+            </Form>
+        )
+    }
+
+    handleSubmit = () => {
+        this.props.editBoardTitle(this.state.titleInput, this.props.board.id)
+        this.setState({
+            isEditingTitle: false
+        })
     }
 
     handleInputChange = (e) => {
@@ -44,22 +58,14 @@ class BoardCard extends React.Component {
         })
     }
 
-    handleSubmit = () => {
-
-    }
-
-    boardLinkActive = () => {
-        return false
-    }
-
     render() {
         const { board } = this.props        
         return (
             <div className="col">
-                <NavLink to={`board/${board.id}`} isActive={this.boardLinkActive}>
-                    <Card fluid raised={true} onClick={this.handleClick} onMouseEnter={this.mouseEnterCard} onMouseLeave={this.mouseLeaveCard}>
+                <NavLink to={`board/${board.id}`}>
+                    <Card fluid raised={true} onClick={this.handleClick} >
                         <Card.Content className="list-title-row">                            
-                            <Card.Header className="list-title-column">{board.title}</Card.Header>                                
+                            <Card.Header className="list-title-column">{this.state.isEditingTitle ? this.renderTitleInput() : board.title}</Card.Header>                                
                             {this.renderBoardOptionsDropDown()}
                         </Card.Content>                                              
                     </Card>
@@ -69,4 +75,4 @@ class BoardCard extends React.Component {
     }
 }
 
-export default connect(null , { selectedBoard, deleteBoard })(BoardCard)
+export default connect(null , { selectedBoard, deleteBoard, editBoardTitle })(BoardCard)
