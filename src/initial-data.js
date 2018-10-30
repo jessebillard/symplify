@@ -3,93 +3,93 @@ const initialData = {
     listIdCounter: 12,
     noteIdCounter: 8,
     boards: [
-        {id: 1, title: 'sick board', listOrder: [2, 1, 3]},
-        {id: 2, title: 'on board', listOrder: [5, 4, 6]},
-        {id: 3, title: 'so board', listOrder: [8, 7, 9]},
-        {id: 4, title: 'bored board', listOrder: [11, 10, 12]}
+        {id: 'board-1', title: 'sick board', listOrder: ['list-2', 'list-1', 'list-3']},
+        {id: 'board-2', title: 'on board', listOrder: ['list-5', 'list-4', 'list-6']},
+        {id: 'board-3', title: 'so board', listOrder: ['list-8', 'list-7', 'list-9']},
+        {id: 'board-4', title: 'bored board', listOrder: ['list-11', 'list-10', 'list-12']}
     ],
     notes: [
-        { id: 1, listId: 1, description: 'it smelling', title: 'take out the garbage'},
-        { id: 2, listId: 1, description: 'anime fersure', title: 'watch the toobe'},
-        { id: 3, listId: 1, description: 'ALL THE FOODS', title: 'buy the foods'},
-        { id: 4, listId: 4, description: 'ALL THE FOODS MUST BE EATING', title: 'eat the foods'},
-        { id: 5, listId: 4, description: 'best boi', title: 'be boi'},
-        { id: 6, listId: 7, description: 'need bae', title: 'find bae'},
-        { id: 7, listId: 7, description: 'calling for you bae', title: 'where is bae?'},
-        { id: 8, listId: 10, description: 'g doulbe o D',  title: 'so goooood'},
+        { id: 'note-1', listId: 'list-1', description: 'it smelling', title: 'take out the garbage'},
+        { id: 'note-2', listId: 'list-1', description: 'anime fersure', title: 'watch the toobe'},
+        { id: 'note-3', listId: 'list-1', description: 'ALL THE FOODS', title: 'buy the foods'},
+        { id: 'note-4', listId: 'list-4', description: 'ALL THE FOODS MUST BE EATING', title: 'eat the foods'},
+        { id: 'note-5', listId: 'list-4', description: 'best boi', title: 'be boi'},
+        { id: 'note-6', listId: 'list-7', description: 'need bae', title: 'find bae'},
+        { id: 'note-7', listId: 'list-7', description: 'calling for you bae', title: 'where is bae?'},
+        { id: 'note-8', listId: 'list-10', description: 'g doulbe o D',  title: 'so goooood'},
     ],
     lists: [
         {
-            id: 1,
+            id: 'list-1',
             title: 'To do',
-            noteOrder: [1],
-            boardId: 1
+            noteOrder: ['note-1'],
+            boardId: 'board-1'
         },
         {
-            id: 2,
+            id: 'list-2',
             title: 'In progress',
-            noteOrder: [2],
-            boardId: 1
+            noteOrder: ['note-2'],
+            boardId: 'board-1'
         },
         {
-            id: 3,
+            id: 'list-3',
             title: 'Done',
-            noteOrder: [3],
-            boardId: 1
+            noteOrder: ['note-3'],
+            boardId: 'board-1'
         },
         {
-            id: 4,
+            id: 'list-4',
             title: 'test',
-            noteOrder: [5, 4],
-            boardId: 2
+            noteOrder: ['note-5', 'note-4'],
+            boardId: 'board-2'
         },
         {
-            id: 5,
+            id: 'list-5',
             title: 'super',
             noteOrder: [],
-            boardId: 2
+            boardId: 'board-2'
         },
         {
-            id: 6,
+            id: 'list-6',
             title: 'duper',
             noteOrder: [],
-            boardId: 2
+            boardId: 'board-2'
         },
         {
-            id: 7,
+            id: 'list-7',
             title: 'sickness',
-            noteOrder: [7, 6],
-            boardId: 3
+            noteOrder: ['note-7', 'note-6'],
+            boardId: 'board-3'
         },
         {
-            id: 8,
+            id: 'list-8',
             title: 'legitness',
             noteOrder: [],
-            boardId: 3
+            boardId: 'board-3'
         },
         {
-            id: 9,
+            id: 'list-9',
             title: 'wonton sup',
             noteOrder: [],
-            boardId: 3
+            boardId: 'board-3'
         },
         {
-            id: 10,
+            id: 'list-10',
             title: 'dumpling king',
-            noteOrder: [8],
-            boardId: 4
+            noteOrder: ['note-8'],
+            boardId: 'board-4'
         },
         {
-            id: 11,
+            id: 'list-11',
             title: 'suhp boi',
             noteOrder: [],
-            boardId: 4
+            boardId: 'board-4'
         },
         {
-            id: 12,
+            id: 'list-12',
             title: 'okey dokey',
             noteOrder: [],
-            boardId: 4
+            boardId: 'board-4'
         },
     ],    
 }

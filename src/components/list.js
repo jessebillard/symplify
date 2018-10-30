@@ -96,7 +96,7 @@ class List extends React.Component {
     render() {               
         return (
             <div>
-                <Draggable draggableId={this.props.list.id.toString()} index={this.props.index}>
+                <Draggable draggableId={this.props.list.id} index={this.props.index}>
                     {(provided) => (
                         <Container
                             {...provided.draggableProps}
@@ -108,7 +108,7 @@ class List extends React.Component {
                                     {this.state.isEditingTitle ? '' : this.renderOptionsDropDown()}
                                 </div>
                             </div>
-                            <Droppable droppableId={this.props.list.id.toString()} type='note'>
+                            <Droppable droppableId={this.props.list.id} type='note'>
                                 {(provided, snapshot) => (
                                     <NoteList
                                         isDraggingOver={snapshot.isDraggingOver}

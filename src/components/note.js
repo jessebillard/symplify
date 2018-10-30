@@ -38,7 +38,7 @@ class Note extends React.Component {
     render() {
         return (
             <div>
-                <Draggable draggableId={this.props.note.id.toString()} index={this.props.index}>
+                <Draggable draggableId={this.props.note.id} index={this.props.index}>
                     {(provided, snapshot) => (
                         <Container
                             {...provided.draggableProps}

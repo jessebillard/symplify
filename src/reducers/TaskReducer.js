@@ -10,7 +10,7 @@ export default (
     switch (action.type) {        
         case 'CREATE_BOARD':
             const newBoard = {
-                id: initialData['boardIdCounter'] += 1,
+                id: `board-${initialData['boardIdCounter'] += 1}`,
                 title: action.boardTitle,
                 columns: [],
                 listOrder: []
@@ -54,7 +54,7 @@ export default (
         case 'CREATE_NOTE':
             const listsCopy = [...state.selectedListsOrder]
             const listCopy = listsCopy.find(list => list.id === state.selectedListId) 
-            const completeNote = Object.assign({id: state.noteIdCounter += 1}, action.note)   
+            const completeNote = Object.assign({id: `note-${state.noteIdCounter += 1}`}, action.note)   
             const notesCopy = [...state.notes]
             notesCopy.push(completeNote)        
             listCopy.noteOrder.unshift(completeNote.id)
@@ -67,7 +67,7 @@ export default (
             }
         case 'CREATE_LIST':             
             const newList = {
-                id: state.listIdCounter++,
+                id: `list-${state.listIdCounter += 1}`,
                 title: action.listTitle,
                 noteOrder: [],
                 boardId: state.selectedBoard.id
