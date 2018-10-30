@@ -3,10 +3,10 @@ const initialData = {
     listIdCounter: 12,
     noteIdCounter: 8,
     boards: [
-        {id: 1, title: 'sick board', listOrder: ['list-1', 'list-2', 'list-3']},
-        {id: 2, title: 'on board', listOrder: ['list-4', 'list-5', 'list-6']},
-        {id: 3, title: 'so board', listOrder: ['list-7', 'list-8', 'list-9']},
-        {id: 4, title: 'bored board', listOrder: ['list-10', 'list-11', 'list-12']}
+        {id: 1, title: 'sick board', listOrder: [2, 1, 3]},
+        {id: 2, title: 'on board', listOrder: [5, 4, 6]},
+        {id: 3, title: 'so board', listOrder: [8, 7, 9]},
+        {id: 4, title: 'bored board', listOrder: [11, 10, 12]}
     ],
     notes: [
         { id: 1, listId: 1, description: 'it smelling', title: 'take out the garbage'},
@@ -22,7 +22,7 @@ const initialData = {
         {
             id: 1,
             title: 'To do',
-            noteOrder: [1, 2, 3],
+            noteOrder: [3, 2, 1],
             boardId: 1
         },
         {
@@ -40,7 +40,7 @@ const initialData = {
         {
             id: 4,
             title: 'test',
-            noteOrder: [4, 5],
+            noteOrder: [5, 4],
             boardId: 2
         },
         {
@@ -58,7 +58,7 @@ const initialData = {
         {
             id: 7,
             title: 'sickness',
-            noteOrder: [6, 7],
+            noteOrder: [7, 6],
             boardId: 3
         },
         {

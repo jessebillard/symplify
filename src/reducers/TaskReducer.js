@@ -2,7 +2,8 @@ import initialData from '../initial-data'
 export default (
     state = Object.assign({
         selectedBoard: '', 
-        selectedLists: '', 
+        selectedListsOrder: '', 
+        selectedNotes: '',
         selectedListId: '',
         selectedNote: ''
     }, initialData), action) => {        
@@ -29,12 +30,26 @@ export default (
                 selectedListId: action.listId
             }
         case 'SELECT_BOARD':
-            console.log('state.lists:', state.lists)
-            const lists = state.lists.filter(list => list.boardId === action.board.id)
+            const listsOnBoard = state.lists.filter(list => list.boardId === action.board.id) 
+            const notesOnLists = []
+            listsOnBoard.forEach(list => {
+                if (list.noteOrder.length > 0) {
+                    list.noteOrder.forEach(noteId => {
+                        const note = state.notes.find(note => note.id === noteId)
+                        notesOnLists.push(note)
+                    })
+                }
+            })           
+            const listOrder = []
+            action.board.listOrder.forEach(listId => {
+                const list = listsOnBoard.find(list => list.id === listId)
+                listOrder.push(list)
+            })             
             return {
                 ...state,
                 selectedBoard: action.board,
-                selectedLists: lists
+                selectedListsOrder: listOrder,
+                selectedNotes: notesOnLists
             }
         case 'CREATE_NOTE':
             const listsCopy = [...state.selectedLists]

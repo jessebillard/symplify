@@ -93,7 +93,8 @@ class List extends React.Component {
         })
     }
 
-    render() {            
+    render() {    
+        // console.log(this.props.notes)        
         return (
             <div>
                 <Draggable draggableId={this.props.list.id.toString()} index={this.props.index}>
@@ -115,7 +116,7 @@ class List extends React.Component {
                                         {...provided.droppableProps} 
                                         innerRef={provided.innerRef}
                                     >
-                                        {this.props.notes.map((note, index) => <Note key={note.id} index={index} note={note} />)}
+                                        {this.props.notes.length > 0 ? this.props.notes.map((note, index) => <Note key={note.id} index={index} note={note} />) : ''}
                                         {provided.placeholder}
                                     </NoteList>
                                 )}

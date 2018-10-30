@@ -29,12 +29,15 @@ class BoardCard extends React.Component {
 
     handleDropdownSelection = (e) => {
         console.log('handle dropdown hit')
-        if (e.target.innerText === 'Delete Board') {
-            // this.props.deleteBoard(this.props.board.id)
-        } else if (e.target.innerText === 'Edit Title') {
-            this.setState({
-                isEditingTitle: true
-            })            
+        if (e) {
+            if (e.target.innerText === 'Delete Board') {
+                // last board still gets deleted automatically upon page refresh even if this is commented out!?!
+                this.props.deleteBoard(this.props.board.id)
+            } else if (e.target.innerText === 'Edit Title') {
+                this.setState({
+                    isEditingTitle: true
+                })            
+            }
         }
     }
 

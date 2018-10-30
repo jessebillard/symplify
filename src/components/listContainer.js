@@ -90,6 +90,16 @@ class ListContainer extends React.Component {
     //     }
     }
 
+    noteOrder = (noteOrderArray) => {
+        const noteOrder = []                
+        noteOrderArray.forEach(noteId => {
+            const note = this.props.notes.find(note => note.id === noteId)
+            noteOrder.push(note)
+            debugger
+        })
+        return noteOrder
+    }
+
     render() {                     
         return (            
             <DragDropContext onDragEnd={this.onDragEnd} >
@@ -99,8 +109,8 @@ class ListContainer extends React.Component {
                         {...provided.droppableProps}
                         innerRef={provided.innerRef}
                     >
-                        {this.props.lists.map((list, index) => {  
-                            const notes = this.props.notes.filter(note => note.listId === list.id)                                                                        
+                        {this.props.lists.map((list, index) => { 
+                            const notes = this.noteOrder(list.noteOrder)                                               
                             return <List key={list.id} list={list} index={index} notes={notes} />
                         })}
                         {provided.placeholder}
@@ -112,11 +122,11 @@ class ListContainer extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {     
     return {
         selectedBoard: state.selectedBoard,
-        lists: state.selectedLists,
-        notes: state.notes
+        lists: state.selectedListsOrder,
+        notes: state.selectedNotes
     }
 }
 
