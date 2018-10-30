@@ -93,8 +93,7 @@ class List extends React.Component {
         })
     }
 
-    render() {    
-        // console.log(this.props.notes)        
+    render() {               
         return (
             <div>
                 <Draggable draggableId={this.props.list.id.toString()} index={this.props.index}>

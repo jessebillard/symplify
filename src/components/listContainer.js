@@ -14,88 +14,90 @@ const Container = styled.div`
 class ListContainer extends React.Component {
 
     onDragEnd = (result) => {
-    //     const { destination, source, draggableId, type } = result
-    
-        // if no desination we return out
-        // if (!destination) {
-        //   return
-        // }
+        const { destination, source, draggableId, type } = result
+        console.log('source', source)
+        console.log('destination', destination)
+        console.log('draggableId', draggableId)
+        console.log('type', type)
+        // if no destination we return out
+        if (!destination) {
+          return
+        }
     
         // if location of the destination and source id's are the same, we return out
-    //     if (
-    //       destination.droppableId === source.droppableId &&
-    //       destination.index === source.index
-    //     ) {
-    //       return 
-    //     }
+        if (
+          destination.droppableId === source.droppableId &&
+          destination.index === source.index
+        ) {
+          return 
+        }
     
     
-    //     if (type === 'column') {
-    //       const newColumnOrder = Array.from(this.state.columnOrder)
-    //       newColumnOrder.splice(source.index, 1)
-    //       newColumnOrder.splice(destination.index, 0, draggableId)
-    //       this.setState({
-    //         ...this.state,
-    //         columnOrder: newColumnOrder
-    //       })
-    //       return;
-    //     }
+        if (type === 'column') {
+        //   const newColumnOrder = Array.from(this.state.columnOrder)
+        //   newColumnOrder.splice(source.index, 1)
+        //   newColumnOrder.splice(destination.index, 0, draggableId)
+        //   this.setState({
+        //     ...this.state,
+        //     columnOrder: newColumnOrder
+        //   })
+          return;
+        }
         
         
-    //     const start = this.state.columns[source.droppableId]
-    //     const finish = this.state.columns[destination.droppableId] 
+        // const start = this.state.columns[source.droppableId]
+        // const finish = this.state.columns[destination.droppableId] 
         
-    //     if (start === finish) {
-    //       const newTaskIds = Array.from(start.taskIds)
+        // if (start === finish) {
+        //   const newTaskIds = Array.from(start.taskIds)
         
-    //       newTaskIds.splice(source.index, 1)
+        //   newTaskIds.splice(source.index, 1)
         
-    //       newTaskIds.splice(destination.index, 0, draggableId)
+        //   newTaskIds.splice(destination.index, 0, draggableId)
           
-    //       const newColumn = {
-    //         ...start,
-    //         taskIds: newTaskIds
-    //       }
+        //   const newColumn = {
+        //     ...start,
+        //     taskIds: newTaskIds
+        //   }
       
-    //       this.setState({
-    //         ...this.state,
-    //         columns: {
-    //           ...this.state.columns,
-    //           [newColumn.id]: newColumn
-    //         }
-    //       })
-    //     } else {
-    //       const startTaskIds = Array.from(start.taskIds)
-    //       startTaskIds.splice(source.index, 1)
-    //       const newStart = {
-    //         ...start,
-    //         taskIds: startTaskIds
-    //       }
+        //   this.setState({
+        //     ...this.state,
+        //     columns: {
+        //       ...this.state.columns,
+        //       [newColumn.id]: newColumn
+        //     }
+        //   })
+        // } else {
+        //   const startTaskIds = Array.from(start.taskIds)
+        //   startTaskIds.splice(source.index, 1)
+        //   const newStart = {
+        //     ...start,
+        //     taskIds: startTaskIds
+        //   }
       
-    //       const finishTaskIds = Array.from(finish.taskIds)
-    //       finishTaskIds.splice(destination.index, 0, draggableId)
-    //       const newFinish = {
-    //         ...finish,
-    //         taskIds: finishTaskIds
-    //       }
+        //   const finishTaskIds = Array.from(finish.taskIds)
+        //   finishTaskIds.splice(destination.index, 0, draggableId)
+        //   const newFinish = {
+        //     ...finish,
+        //     taskIds: finishTaskIds
+        //   }
       
-    //       this.setState({
-    //         ...this.state,
-    //         columns: {
-    //           ...this.state.columns,
-    //           [newStart.id]: newStart,
-    //           [newFinish.id]: newFinish
-    //         }
-    //       })
-    //     }
+        //   this.setState({
+        //     ...this.state,
+        //     columns: {
+        //       ...this.state.columns,
+        //       [newStart.id]: newStart,
+        //       [newFinish.id]: newFinish
+        //     }
+        //   })
+        // }
     }
 
     noteOrder = (noteOrderArray) => {
         const noteOrder = []                
         noteOrderArray.forEach(noteId => {
             const note = this.props.notes.find(note => note.id === noteId)
-            noteOrder.push(note)
-            debugger
+            noteOrder.push(note)            
         })
         return noteOrder
     }
@@ -109,8 +111,8 @@ class ListContainer extends React.Component {
                         {...provided.droppableProps}
                         innerRef={provided.innerRef}
                     >
-                        {this.props.lists.map((list, index) => { 
-                            const notes = this.noteOrder(list.noteOrder)                                               
+                        {this.props.lists.map((list, index) => {                                                                          
+                            const notes = this.noteOrder(list.noteOrder) 
                             return <List key={list.id} list={list} index={index} notes={notes} />
                         })}
                         {provided.placeholder}

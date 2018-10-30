@@ -13,7 +13,7 @@ export default (
                 id: initialData['boardIdCounter'] += 1,
                 title: action.boardTitle,
                 columns: [],
-                columnOrder: []
+                listOrder: []
             }
             return {
                 ...state,
@@ -52,16 +52,18 @@ export default (
                 selectedNotes: notesOnLists
             }
         case 'CREATE_NOTE':
-            const listsCopy = [...state.selectedLists]
+            const listsCopy = [...state.selectedListsOrder]
             const listCopy = listsCopy.find(list => list.id === state.selectedListId) 
             const completeNote = Object.assign({id: state.noteIdCounter += 1}, action.note)   
             const notesCopy = [...state.notes]
             notesCopy.push(completeNote)        
             listCopy.noteOrder.unshift(completeNote.id)
+            // debugger
             return {
                 ...state, 
-                selectedLists: listsCopy,
-                notes: notesCopy               
+                selectedListsOrder: listsCopy,
+                selectedNotes: notesCopy,
+                notes: notesCopy             
             }
         case 'CREATE_LIST':             
             const newList = {
@@ -69,16 +71,24 @@ export default (
                 title: action.listTitle,
                 noteOrder: [],
                 boardId: state.selectedBoard.id
-            }            
+            } 
+            const boardWithNewList = Object.assign({}, state.selectedBoard)
+            boardWithNewList.listOrder.push(newList.id) 
+            const boardsMainCopy = [...state.boards]
+            const board2Update = boardsMainCopy.find(board => board.id === boardWithNewList.id)
+            const boardIndexCopy = boardsMainCopy.indexOf(board2Update)
+            boardsMainCopy.splice(boardIndexCopy, 1, boardWithNewList)
             return {
                 ...state,
                 lists: [...state.lists, newList],
-                selectedLists: [...state.selectedLists, newList]
+                selectedListsOrder: [...state.selectedListsOrder, newList],
+                selectedBoard: boardWithNewList,
+                boards: boardsMainCopy
             }
         case 'DELETE_BOARD':  
             // why is this getting hit automatically when the boardCard component mounts?!?!
-            console.log('delete reducer case hit')  
-            console.log(action)        
+            // console.log('delete reducer case hit')  
+            // console.log(action)        
             const boardsCopy = [...state.boards]
             const filteredBoards = boardsCopy.filter(board => board.id !== action.boardId)            
             return {
@@ -107,15 +117,24 @@ export default (
         case 'DELETE_LIST':            
             const filteredLists = state.lists.filter(list => list.id !== action.listId)
             const filteredNotes = state.notes.filter(note => note.listId !== action.listId)
-            const filteredSelectedLists = state.selectedLists.filter(list => list.id !== action.listId)            
+            const filteredSelectedLists = state.selectedListsOrder.filter(list => list.id !== action.listId)
+            const newBoardCopy = Object.assign({}, state.selectedBoard)
+            const listIndex = newBoardCopy.listOrder.indexOf(action.listId)
+            newBoardCopy.listOrder.splice(listIndex, 1)
+            const boardsFilterCopy = [...state.boards]
+            const board = boardsFilterCopy.find(board => board.id === newBoardCopy.id)
+            const boardIndex = boardsFilterCopy.indexOf(board)
+            boardsFilterCopy.splice(boardIndex, 1, newBoardCopy)
             return {
                 ...state,
                 lists: filteredLists,
                 notes: filteredNotes,
-                selectedLists: filteredSelectedLists
+                selectedListsOrder: filteredSelectedLists,
+                selectedBoard: newBoardCopy,
+                boards: boardsFilterCopy
             }
         case 'EDIT_LIST_TITLE':
-            const listEditCopy = [...state.selectedLists]
+            const listEditCopy = [...state.selectedListsOrder]
             const listToChangeTitle = listEditCopy.find(list => list.id === state.selectedListId)
             const newListCopy = Object.assign({}, listToChangeTitle)
             newListCopy.title = action.listTitle
@@ -124,7 +143,7 @@ export default (
             mainListToChangeTitle.title = action.listTitle
             return {
                 ...state,
-                selectedLists: listEditCopy,
+                selectedListsOrder: listEditCopy,
                 lists: mainListCopy
             }
         case 'EDIT_BOARD_TITLE':

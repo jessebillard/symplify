@@ -22,19 +22,19 @@ const initialData = {
         {
             id: 1,
             title: 'To do',
-            noteOrder: [3, 2, 1],
+            noteOrder: [1],
             boardId: 1
         },
         {
             id: 2,
             title: 'In progress',
-            noteOrder: [],
+            noteOrder: [2],
             boardId: 1
         },
         {
             id: 3,
             title: 'Done',
-            noteOrder: [],
+            noteOrder: [3],
             boardId: 1
         },
         {
