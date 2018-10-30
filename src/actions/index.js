@@ -11,7 +11,9 @@ import {
     EDIT_NOTE,
     EDIT_BOARD_TITLE,
     EDIT_LIST_TITLE,
-    DELETE_LIST
+    DELETE_LIST,
+    REORDER_LISTS,
+    REORDER_NOTES
 } from './types'
 
 export const createBoard = (boardTitle) => {
@@ -97,5 +99,21 @@ export const editBoardTitle = (newBoardTitle, boardId) => {
         type: EDIT_BOARD_TITLE,
         boardId,
         newBoardTitle
+    }
+}
+
+export const reorderedLists = (lists) => {
+    return {
+        type: REORDER_LISTS,
+        lists
+    }
+}
+
+export const reorderedNotes = (notes, sourceList, destinationList) => {
+    return {
+        type: REORDER_NOTES,
+        notes,
+        sourceList,
+        destinationList
     }
 }

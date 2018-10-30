@@ -85,10 +85,7 @@ export default (
                 selectedBoard: boardWithNewList,
                 boards: boardsMainCopy
             }
-        case 'DELETE_BOARD':  
-            // why is this getting hit automatically when the boardCard component mounts?!?!
-            // console.log('delete reducer case hit')  
-            // console.log(action)        
+        case 'DELETE_BOARD':            
             const boardsCopy = [...state.boards]
             const filteredBoards = boardsCopy.filter(board => board.id !== action.boardId)            
             return {
@@ -153,6 +150,21 @@ export default (
             return {
                 ...state,
                 boards: boardsEditCopy
+            }
+        case 'REORDER_LISTS':                        
+            const boardWithNewListOrder = Object.assign({}, state.selectedBoard)
+            const mainBoardsCopy = [...state.boards]
+            boardWithNewListOrder.listOrder = action.lists.map(list => list.id)
+            mainBoardsCopy.forEach(board => {
+                if (board.id === boardWithNewListOrder.id) {
+                    board.listOrder = boardWithNewListOrder.listOrder
+                }
+            })
+            return {
+                ...state,
+                selectedBoard: boardWithNewListOrder,
+                selectedListsOrder: action.lists,
+                boards: mainBoardsCopy
             }
         default:
             return state

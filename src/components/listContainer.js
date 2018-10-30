@@ -4,6 +4,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import '@atlaskit/css-reset';
 import { connect } from 'react-redux'
 import List from './list'
+import { reorderedLists, reorderedNotes } from '../actions/index'
 
 const Container = styled.div`
   display: flex;
@@ -15,10 +16,7 @@ class ListContainer extends React.Component {
 
     onDragEnd = (result) => {
         const { destination, source, draggableId, type } = result
-        console.log('source', source)
-        console.log('destination', destination)
-        console.log('draggableId', draggableId)
-        console.log('type', type)
+
         // if no destination we return out
         if (!destination) {
           return
@@ -34,13 +32,11 @@ class ListContainer extends React.Component {
     
     
         if (type === 'column') {
-        //   const newColumnOrder = Array.from(this.state.columnOrder)
-        //   newColumnOrder.splice(source.index, 1)
-        //   newColumnOrder.splice(destination.index, 0, draggableId)
-        //   this.setState({
-        //     ...this.state,
-        //     columnOrder: newColumnOrder
-        //   })
+          const newListOrder = Array.from(this.props.lists)
+          const draggedList = this.props.lists.find(list => list.id === draggableId)
+          newListOrder.splice(source.index, 1)
+          newListOrder.splice(destination.index, 0, draggedList)
+          this.props.reorderedLists(newListOrder)
           return;
         }
         
@@ -132,4 +128,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ListContainer)
+export default connect(mapStateToProps, { reorderedLists, reorderedNotes })(ListContainer)
