@@ -10,7 +10,8 @@ class MainMenu extends React.Component {
         super()
         this.state = {
             modalOpen: false,
-            titleInput: '',            
+            titleInput: '', 
+            activeItem: ''           
         }
     }
 
@@ -33,34 +34,40 @@ class MainMenu extends React.Component {
             })
         }
     }
-
-    handleClick = () => {
-        this.setState({
-            modalOpen: true
-        })
-    }
-
+    
     handleModalClose = () => {
         this.setState({
             modalOpen: false
         })
     }
 
+    handlePlusSignClick = () => {
+        this.setState({
+            modalOpen: true
+        })
+    }
+
+    handleItemClick = (e, {name}) => {
+        // the only reason for this method is because the semantic ui menu item will only turn grey on a mouse hover if it has an onClick event and callback passed to it :)
+        console.log('woohoo')
+    }
+
+
     render() {
         return (
             <React.Fragment>
                 <Menu fluid widths={3}>
-                    <Menu.Item>
-                        <Icon onClick={this.handleClick} size='big' name='plus' />
+                    <Menu.Item onClick={this.handlePlusSignClick}>
+                        <Icon size='big' name='plus' color='blue' />
                     </Menu.Item>
-                    <Menu.Item >
+                    <Menu.Item onClick={this.handleItemClick} name='home'>
                         <Link to='/'>
-                            <Icon size='big' name='home' />
+                            <Icon size='big' color='blue' name='home' />
                         </Link>
                     </Menu.Item>                    
-                    <Menu.Item>
+                    <Menu.Item onClick={this.handleItemClick} name='about' >
                         <Link to='/about'>
-                            <Icon size='big' name='question circle' />
+                            <Icon size='big' color='blue' name='question circle' />
                         </Link>
                     </Menu.Item>                                 
                 </Menu> 
@@ -75,7 +82,7 @@ class MainMenu extends React.Component {
                                     <Input onChange={this.handleInputChange} placeholder='title...'/>                        
                                 </div>
                                 <div className='title-column'>
-                                    <Button primary onClick={this.handleSubmit}>
+                                    <Button color='blue' onClick={this.handleSubmit}>
                                         Submit
                                     </Button>                                                                       
                                 </div>

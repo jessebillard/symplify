@@ -11,7 +11,7 @@ const Container = styled.div`
     border-radius: 4px;
     padding: 8px;
     margin-bottom: 8px;
-    transition: background-color 0.5s ease;
+    transition: background-color 0.5s ease;   
     background-color: ${props => (props.isDragging ? '#D6EFF3': 'white')};
 `
 

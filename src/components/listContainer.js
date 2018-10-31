@@ -5,8 +5,9 @@ import '@atlaskit/css-reset';
 import { connect } from 'react-redux'
 import List from './list'
 import { reorderedLists, reorderedNotes } from '../actions/index'
+import { Header, Divider, Container } from 'semantic-ui-react'
 
-const Container = styled.div`
+const ListContainerDiv = styled.div`
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;  
@@ -68,25 +69,37 @@ class ListContainer extends React.Component {
         return noteOrder
     }
 
-    render() {                     
-        return (            
-            <DragDropContext onDragEnd={this.onDragEnd} >
-                <Droppable droppableId='all-columns' direction='horizontal' type='column'>
-                    {(provided) => (
-                    <Container
-                        {...provided.droppableProps}
-                        innerRef={provided.innerRef}
-                    >
-                        {this.props.lists.map((list, index) => {                                                                          
-                            const notes = this.noteOrder(list.noteOrder) 
-                            return <List key={list.id} list={list} index={index} notes={notes} />
-                        })}
-                        {provided.placeholder}
-                    </Container>            
-                    )}
-                </Droppable>
-            </DragDropContext>
-        )
+    render() { 
+        if (this.props.lists.length === 0) {
+            return (
+                <Container textAlign='center'>
+                    <Header as="h2">You don't appear to have any lists.</Header>
+                    <Divider/>
+                    <p>
+                        Click on the plus symbol above to add a new list.
+                    </p>
+                </Container>
+            )
+        } else {
+            return (            
+                <DragDropContext onDragEnd={this.onDragEnd} >
+                    <Droppable droppableId='all-columns' direction='horizontal' type='column'>
+                        {(provided) => (
+                        <ListContainerDiv
+                            {...provided.droppableProps}
+                            innerRef={provided.innerRef}
+                        >
+                            {this.props.lists.map((list, index) => {                                                                          
+                                const notes = this.noteOrder(list.noteOrder) 
+                                return <List key={list.id} list={list} index={index} notes={notes} />
+                            })}
+                            {provided.placeholder}
+                        </ListContainerDiv>            
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            )            
+        }                    
     }
 }
 
