@@ -4,7 +4,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import 'react-quill/dist/quill.bubble.css'
 import debounce from 'lodash/debounce'
-import { createNote, deselectNote, editNote } from '../actions/index'
+import { createNote, deleteNote, deselectNote, editNote } from '../actions/index'
 import { connect } from 'react-redux'
 
 class NoteEditor extends React.Component {
@@ -71,6 +71,16 @@ class NoteEditor extends React.Component {
         })
     }
 
+    handleDeleteClick = () => {
+        if (this.props.selectedNote) {
+            this.props.deleteNote(this.props.selectedNote.id)
+            this.props.handleModalClose()
+        } else {
+            this.props.handleModalClose()
+        }
+        
+    }
+
     render() {
         console.log(this.props.selectedNote)
         return (
@@ -118,7 +128,7 @@ class NoteEditor extends React.Component {
                         <Button.Group fluid>
                             <Button color="blue" onClick={this.handleSubmit} content="submit" />
                             <Button color={this.state.isCompleted ? 'yellow' : 'green'} onClick={this.handleMarkComplete} content={this.state.isCompleted ? 'mark incomplete' : 'mark complete'}/>
-                            <Button color='red' content='delete note' />
+                            <Button color='red' onClick={this.handleDeleteClick} content='delete note' />
                         </Button.Group>
                     </Segment>
                 </Segment.Group>
@@ -134,4 +144,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { createNote, deselectNote, editNote })(NoteEditor)
+export default connect(mapStateToProps, { createNote, deleteNote, deselectNote, editNote })(NoteEditor)

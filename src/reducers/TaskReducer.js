@@ -92,6 +92,24 @@ export default (
                 ...state,
                 boards: filteredBoards
             }
+        case 'DELETE_NOTE':                        
+            //state.note
+            const filteredNotesCopy = state.notes.filter(note => note.id !== action.noteId)
+            //state.selectedNotes
+            const selectedNotesCopy = state.selectedNotes.filter(note => note.id !== action.noteId)           
+            //selectedListsOrder
+            const removedNoteFromSelectedLists = [...state.selectedListsOrder]
+            const listToRemoveNoteFrom = removedNoteFromSelectedLists.find(list => list.noteOrder.includes(action.noteId))            
+            const noteIndex = listToRemoveNoteFrom.noteOrder.indexOf(action.noteId)
+            listToRemoveNoteFrom.noteOrder.splice(noteIndex, 1)
+            return {
+                ...state, 
+                selectedListsOrder: removedNoteFromSelectedLists,
+                selectedNotes: selectedNotesCopy,
+                notes: filteredNotesCopy             
+            }
+
+
         case 'SELECT_NOTE':            
             return {
                 ...state,

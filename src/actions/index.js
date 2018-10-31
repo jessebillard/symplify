@@ -5,6 +5,7 @@ import {
     CREATE_LIST,
     SELECT_LIST,
     DELETE_BOARD,
+    DELETE_NOTE,
     SELECT_BOARD,
     SELECT_NOTE,
     DESELECT_NOTE,
@@ -65,12 +66,27 @@ export const selectNote = (note) => {
     }
 }
 
+export const deleteList = (listId) => {
+    return {
+        type: DELETE_LIST,
+        listId
+    }
+}
+
+export const deleteNote = (noteId) => {
+    return {
+        type: DELETE_NOTE,
+        noteId
+    }
+}
+
 export const deselectNote = () => {
     return {
         type: DESELECT_NOTE,
         payload: 's'
     }
 }
+
 
 export const editNote = (note, id) => {
     return {
@@ -80,12 +96,6 @@ export const editNote = (note, id) => {
     }
 }
 
-export const deleteList = (listId) => {
-    return {
-        type: DELETE_LIST,
-        listId
-    }
-}
 
 export const editListTitle = (listTitle) => {
     return {
