@@ -166,6 +166,30 @@ export default (
                 selectedListsOrder: action.lists,
                 boards: mainBoardsCopy
             }
+        case 'REORDER_NOTES':            
+            // update the noteOrder of the lists involved
+            // for same list             
+            const mainListsCopy = [...state.lists] 
+            const mainSelectedListsCopy = [...state.selectedListsOrder]           
+            if (!action.destinationList) {
+                const listWithNewOrder = mainListsCopy.find(list => list.id === action.sourceList.id)
+                listWithNewOrder.noteOrder = action.newNoteOrder
+                const selectedList = mainSelectedListsCopy.find(list => list.id === action.sourceList.id)
+                const index = mainSelectedListsCopy.indexOf(selectedList)
+                mainSelectedListsCopy.splice(index, 1, listWithNewOrder)
+            } else {
+                // for different lists
+                const newNotesCopy = [...state.notes]
+                // const noteWithNewListId = newNotesCopy.find(note => note.id ===)
+                // update the listId of the dragged note in initialData
+                // update listId of note in selectedNote
+
+            }
+            return {
+                ...state,
+                lists: mainListsCopy,
+                selectedListsOrder: mainSelectedListsCopy
+            }
         default:
             return state
     }

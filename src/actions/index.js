@@ -109,10 +109,10 @@ export const reorderedLists = (lists) => {
     }
 }
 
-export const reorderedNotes = (notes, sourceList, destinationList) => {
+export const reorderedNotes = (newNoteOrder, sourceList, destinationList) => {
     return {
         type: REORDER_NOTES,
-        notes,
+        newNoteOrder,
         sourceList,
         destinationList
     }
