@@ -42,9 +42,11 @@ class MainMenu extends React.Component {
     }
 
     handlePlusSignClick = () => {
-        this.setState({
-            modalOpen: true
-        })
+        if (window.location.pathname !== '/about') {
+            this.setState({
+                modalOpen: true
+            })
+        }
     }
 
     handleItemClick = (e, {name}) => {

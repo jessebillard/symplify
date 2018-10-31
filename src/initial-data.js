@@ -9,14 +9,14 @@ const initialData = {
         {id: 'board-4', title: 'bored board', listOrder: ['list-11', 'list-10', 'list-12']}
     ],
     notes: [
-        { id: 'note-1', listId: 'list-1', description: 'it smelling', title: 'take out the garbage'},
-        { id: 'note-2', listId: 'list-1', description: 'anime fersure', title: 'watch the toobe'},
-        { id: 'note-3', listId: 'list-1', description: 'ALL THE FOODS', title: 'buy the foods'},
-        { id: 'note-4', listId: 'list-4', description: 'ALL THE FOODS MUST BE EATING', title: 'eat the foods'},
-        { id: 'note-5', listId: 'list-4', description: 'best boi', title: 'be boi'},
-        { id: 'note-6', listId: 'list-7', description: 'need bae', title: 'find bae'},
-        { id: 'note-7', listId: 'list-7', description: 'calling for you bae', title: 'where is bae?'},
-        { id: 'note-8', listId: 'list-10', description: 'g doulbe o D',  title: 'so goooood'},
+        { id: 'note-1', listId: 'list-1', status: 'incomplete', description: 'it smelling', title: 'take out the garbage'},
+        { id: 'note-2', listId: 'list-1', status: 'incomplete', description: 'anime fersure', title: 'watch the toobe'},
+        { id: 'note-3', listId: 'list-1', status: 'incomplete', description: 'ALL THE FOODS', title: 'buy the foods'},
+        { id: 'note-4', listId: 'list-4', status: 'incomplete', description: 'ALL THE FOODS MUST BE EATING', title: 'eat the foods'},
+        { id: 'note-5', listId: 'list-4', status: 'incomplete', description: 'best boi', title: 'be boi'},
+        { id: 'note-6', listId: 'list-7', status: 'incomplete', description: 'need bae', title: 'find bae'},
+        { id: 'note-7', listId: 'list-7', status: 'incomplete', description: 'calling for you bae', title: 'where is bae?'},
+        { id: 'note-8', listId: 'list-10', status: 'incomplete',  description: 'g doulbe o D',  title: 'so goooood'},
     ],
     lists: [
         {
