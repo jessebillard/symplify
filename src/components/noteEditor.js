@@ -13,7 +13,8 @@ class NoteEditor extends React.Component {
         this.state = {
             title: props.selectedNote ? props.selectedNote.title : '',
             description: props.selectedNote ? props.selectedNote.description : '',  
-            titleInputError: false
+            titleInputError: false,
+            isCompleted: props.selectedNote ? props.selectedNote.isCompleted : false
             // editTitle: props.selectedNote.title                                  
         }
     }
@@ -47,7 +48,8 @@ class NoteEditor extends React.Component {
                 const noteData = {
                     title: this.state.title,
                     description: this.state.description,
-                    listId: this.props.selectedListId
+                    listId: this.props.selectedListId,
+                    isCompleted: this.state.isCompleted
                 }
                 this.props.createNote(noteData)
             }     
@@ -63,8 +65,14 @@ class NoteEditor extends React.Component {
         })
     }
 
+    handleMarkComplete = () => {
+        this.setState({
+            isCompleted: !this.state.isCompleted
+        })
+    }
+
     render() {
-        // console.log(this.props.selectedNote)
+        console.log(this.props.selectedNote)
         return (
             <div>
                 <Segment.Group horizontal>
@@ -83,10 +91,10 @@ class NoteEditor extends React.Component {
                         <Grid columns='2'>
                             <Grid.Row>
                                 <Grid.Column style={{width: '109px'}}>
-                                    <Icon style={{paddingLeft: '80px'}} name='ban' size='big' color='yellow'/>
+                                    <Icon style={{paddingLeft: '80px'}} name={this.state.isCompleted ? 'check circle' : 'ban'} size='big' color={this.state.isCompleted ? 'green' : 'yellow'}/>
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <h2>Incomplete</h2> 
+                                    {this.state.isCompleted ? <h2>Complete</h2> : <h2>Incomplete</h2> }
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
@@ -109,7 +117,7 @@ class NoteEditor extends React.Component {
                     <Segment style={{marginTop: '44px'}}>
                         <Button.Group fluid>
                             <Button color="blue" onClick={this.handleSubmit} content="submit" />
-                            <Button color='green' onClick={this.handleMarkComplete} content='mark complete'/>
+                            <Button color={this.state.isCompleted ? 'yellow' : 'green'} onClick={this.handleMarkComplete} content={this.state.isCompleted ? 'mark incomplete' : 'mark complete'}/>
                             <Button color='red' content='delete note' />
                         </Button.Group>
                     </Segment>

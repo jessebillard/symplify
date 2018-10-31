@@ -107,6 +107,7 @@ export default (
             const newEditedNote = editNotesCopy.find(note => note.id === action.id)
             newEditedNote.title = action.note.title
             newEditedNote.description = action.note.description
+            newEditedNote.isCompleted = action.note.isCompleted
             return {
                 ...state,
                 notes: editNotesCopy
