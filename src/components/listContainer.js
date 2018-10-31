@@ -51,28 +51,11 @@ class ListContainer extends React.Component {
             this.props.reorderedNotes(newNoteOrder, start)
           
         } else {
-          const startTaskIds = Array.from(start.taskIds)
-          startTaskIds.splice(source.index, 1)
-          const newStart = {
-            ...start,
-            taskIds: startTaskIds
-          }
-      
-          const finishTaskIds = Array.from(finish.taskIds)
-          finishTaskIds.splice(destination.index, 0, draggableId)
-          const newFinish = {
-            ...finish,
-            taskIds: finishTaskIds
-          }
-      
-          this.setState({
-            ...this.state,
-            columns: {
-              ...this.state.columns,
-              [newStart.id]: newStart,
-              [newFinish.id]: newFinish
-            }
-          })
+            const startNoteOrder = Array.from(start.noteOrder)
+            startNoteOrder.splice(source.index, 1)                      
+            const finishNoteOrder = Array.from(finish.noteOrder)
+            finishNoteOrder.splice(destination.index, 0, draggableId)                  
+            this.props.reorderedNotes(startNoteOrder, start, finish, finishNoteOrder, draggableId)
         }
     }
 

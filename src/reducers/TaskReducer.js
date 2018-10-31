@@ -173,22 +173,41 @@ export default (
             const mainSelectedListsCopy = [...state.selectedListsOrder]           
             if (!action.destinationList) {
                 const listWithNewOrder = mainListsCopy.find(list => list.id === action.sourceList.id)
-                listWithNewOrder.noteOrder = action.newNoteOrder
+                listWithNewOrder.noteOrder = action.startNoteOrder
                 const selectedList = mainSelectedListsCopy.find(list => list.id === action.sourceList.id)
                 const index = mainSelectedListsCopy.indexOf(selectedList)
                 mainSelectedListsCopy.splice(index, 1, listWithNewOrder)
+                return {
+                    ...state,
+                    lists: mainListsCopy,
+                    selectedListsOrder: mainSelectedListsCopy
+                }
             } else {
+                // debugger
                 // for different lists
-                const newNotesCopy = [...state.notes]
-                // const noteWithNewListId = newNotesCopy.find(note => note.id ===)
                 // update the listId of the dragged note in initialData
-                // update listId of note in selectedNote
+                const newNotesCopy = [...state.notes]
+                const noteWithNewListId = newNotesCopy.find(note => note.id === action.noteId)
+                noteWithNewListId.listId = action.destinationList.id
 
-            }
-            return {
-                ...state,
-                lists: mainListsCopy,
-                selectedListsOrder: mainSelectedListsCopy
+                // update the lists
+                const newStartList = mainListsCopy.find(list => list.id === action.sourceList.id)
+                const newFinishList = mainListsCopy.find(list => list.id === action.destinationList.id)
+                newStartList.noteOrder = action.startNoteOrder
+                newFinishList.noteOrder = action.finishNoteOrder
+
+                // update selectedListsOrder
+                const newStartSelectedList = mainSelectedListsCopy.find(list => list.id === action.sourceList.id)
+                const newFinishSelectedList = mainSelectedListsCopy.find(list => list.id === action.destinationList.id)
+                newStartSelectedList.noteOrder = action.startNoteOrder
+                newFinishSelectedList.noteOrder = action.finishNoteOrder
+
+                return {
+                    ...state,
+                    notes: newNotesCopy,
+                    lists: mainListsCopy,
+                    selectedListsOrder: mainSelectedListsCopy
+                }
             }
         default:
             return state
