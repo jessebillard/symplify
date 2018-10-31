@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Icon, Modal, Segment, Input, Button } from 'semantic-ui-react'
+import { Menu, Icon, Modal, Segment, Input, Button, Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { createBoard, createList } from '../actions/index'
 import { connect } from 'react-redux'
@@ -79,16 +79,9 @@ class MainMenu extends React.Component {
                             {window.location.pathname === '/' ? <h1>Give this Board a title!</h1> : <h1>Give this List a title!</h1> }                            
                         </Segment>
                         <Segment textAlign='center'>  
-                            <div className='title-input'>
-                                <div className='title-column'>
-                                    <Input onChange={this.handleInputChange} placeholder='title...'/>                        
-                                </div>
-                                <div className='title-column'>
-                                    <Button color='blue' onClick={this.handleSubmit}>
-                                        Submit
-                                    </Button>                                                                       
-                                </div>
-                            </div>                          
+                            <Form onSubmit={this.handleSubmit}>
+                                <Form.Input onChange={this.handleInputChange} placeholder='title...' />                               
+                            </Form>                     
                         </Segment>
                     </Segment.Group>
                 </Modal>

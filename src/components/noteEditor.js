@@ -13,7 +13,8 @@ class NoteEditor extends React.Component {
         this.state = {
             title: props.selectedNote ? props.selectedNote.title : '',
             description: props.selectedNote ? props.selectedNote.description : '',  
-            // editTitle: props.selectedNote.title                      
+            titleInputError: false
+            // editTitle: props.selectedNote.title                                  
         }
     }
 
@@ -32,19 +33,34 @@ class NoteEditor extends React.Component {
         })
     }, 500)
 
-    handleSubmit = () => {        
-        if (this.props.selectedNote) {
-            this.props.editNote(this.state, this.props.selectedNote.id)
+    handleSubmit = () => {   
+        if (!this.state.title) {
+           this.setState({
+               titleInputError: true,
+               title: '* Title is required *'
+           }) 
+           return
         } else {
-            const noteData = {
-                title: this.state.title,
-                description: this.state.description,
-                listId: this.props.selectedListId
-            }
-            this.props.createNote(noteData)
-        }     
-        this.props.handleModalClose()
-        this.props.deselectNote()
+            if (this.props.selectedNote) {
+                this.props.editNote(this.state, this.props.selectedNote.id)
+            } else {
+                const noteData = {
+                    title: this.state.title,
+                    description: this.state.description,
+                    listId: this.props.selectedListId
+                }
+                this.props.createNote(noteData)
+            }     
+            this.props.handleModalClose()
+            this.props.deselectNote()
+        }
+    }
+
+    revertInputError = () => {
+        this.setState({
+            titleInputError: false,
+            title: this.props.selectedNote ? this.props.selectedNote.title : ''
+        })
     }
 
     render() {
@@ -55,8 +71,8 @@ class NoteEditor extends React.Component {
                     <Segment textAlign='center'>
                         {this.props.selectedNote ? <h2 style={{paddingTop: '3px'}}>Edit Title</h2> : <h2 style={{paddingTop: '3px'}}>Add Title</h2>}
                     </Segment>
-                    <Segment style={{width: '140px'}} textAlign='center'>
-                        <Input onChange={this.handleTitleChange} value={this.state.title} />
+                    <Segment style={{width: '140px'}} textAlign='center'>                        
+                        <Input error={this.state.titleInputError} onClick={this.revertInputError} onChange={this.handleTitleChange} value={this.state.title} />
                     </Segment>
                 </Segment.Group>
                 <Segment.Group horizontal>
