@@ -87,7 +87,7 @@ class NoteEditor extends React.Component {
             <div>
                 <Segment.Group horizontal>
                     <Segment textAlign='center'>
-                        {this.props.selectedNote ? <h2 style={{paddingTop: '3px'}}>Edit Title</h2> : <h2 style={{paddingTop: '3px'}}>Add Title</h2>}
+                        {this.props.selectedNote ? <h2 style={{paddingTop: '3px'}}>Edit Title:</h2> : <h2 style={{paddingTop: '3px'}}>Add Title:</h2>}
                     </Segment>
                     <Segment style={{width: '140px'}} textAlign='center'>                        
                         <Input error={this.state.titleInputError} onClick={this.revertInputError} onChange={this.handleTitleChange} value={this.state.title} />
@@ -95,7 +95,7 @@ class NoteEditor extends React.Component {
                 </Segment.Group>
                 <Segment.Group horizontal>
                     <Segment textAlign='center'>
-                        <h2 style={{paddingTop: '3px'}}>Status</h2>
+                        <h2 style={{paddingTop: '3px'}}>Status:</h2>
                     </Segment>
                     <Segment style={{width: '112px'}} textAlign='center'>
                         <Grid columns='2'>
@@ -112,7 +112,7 @@ class NoteEditor extends React.Component {
                 </Segment.Group>
                 <Segment.Group>
                     <Segment> 
-                        {this.props.selectedNote ? <h2 style={{marginLeft: '75px', marginBottom: '12px'}}>Edit Description</h2> : <h2 style={{marginLeft: '69px', marginBottom: '11px'}}>Add Description</h2>}                       
+                        {this.props.selectedNote ? <h2 style={{marginLeft: '75px', marginBottom: '12px'}}>Edit Description:</h2> : <h2 style={{marginLeft: '69px', marginBottom: '11px'}}>Add Description:</h2>}                       
                         <ReactQuill 
                             theme='snow'
                             onChange={this.handleDescriptionChange.bind(this)}                                                    
